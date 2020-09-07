@@ -1,0 +1,50 @@
+$ ./openemr-env-installer /Users/reid/code reidliu41
+===> Homebrew is already installed.
+
+===> Git is already installed.
+If your git is installed by default, and you want to upgrade it, please try:
+  brew install git
+  echo 'export PATH=/usr/local/bin:$PATH' >> ~/.bash_profile
+  source ~/.bash_profile
+
+===> OpenEMR repo is already downloaded.
+
+===> Installing docker...
+
+Updating Homebrew...
+==> Downloading https://desktop.docker.com/mac/stable/46911/Docker.dmg
+Already downloaded: /Users/reid/Library/Caches/Homebrew/downloads/f2c04a882ca17c8d0823426b26cf9ac2473091e9f113510047de6ff5ef58ef50--Docker.dmg
+==> Verifying SHA-256 checksum for Cask 'docker'.
+==> Installing Cask docker
+==> Moving App 'Docker.app' to '/Applications/Docker.app'.
+🍺  docker was successfully installed!
+
+===> Please click open for docker prompt window.
+===> Please click ok and provide your login password for docker privileged access prompt window.
+Please enter [yes|y] to continue if you already permitted the docker access: y
+
+===> Docker Compose is installed as part of Docker for Mac.
+
+===> Installing openemr-cmd...
+
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 18407  100 18407    0     0  16037      0  0:00:01  0:00:01 --:--:-- 16033
+
+****************************Quick Check****************************
+git version 2.17.2 (Apple Git-113)
+Docker version 19.03.12, build 48a66213fe
+docker-compose version 1.26.2, build eefe0d31
+openemer-cmd 1.0.6
+
+The docker status:
+Please check the docker icon on the top right of the desktop.
+********************************************************************
+
+*****************************Startup Env*****************************
+NOTE: Please log out and back in for using docker as a non-root user to take effect if ubuntu/debian.
+==>Run the below command to startup easy env.
+cd /openemr && sudo docker-compose up
+==>Or run the below command to startup insane env.
+cd /openemr/contrib/util/docker && sudo docker-compose up
+*********************************************************************
