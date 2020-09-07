@@ -1,0 +1,761 @@
+# ./openemr-env-installer /home/cts/code reidliu41
+===> Enabling base and extras repo...
+
+===> Installing git...
+
+Loaded plugins: product-id, search-disabled-repos, subscription-manager
+rhel-7-server-extras-rpms                                                                            | 3.4 kB  00:00:00
+rhel-7-server-htb-rpms                                                                               | 4.1 kB  00:00:00
+rhel-7-server-rpms                                                                                   | 3.5 kB  00:00:00
+Resolving Dependencies
+--> Running transaction check
+---> Package git.x86_64 0:1.8.3.1-23.el7_8 will be installed
+--> Processing Dependency: perl-Git = 1.8.3.1-23.el7_8 for package: git-1.8.3.1-23.el7_8.x86_64
+--> Processing Dependency: perl(Git) for package: git-1.8.3.1-23.el7_8.x86_64
+--> Running transaction check
+---> Package perl-Git.noarch 0:1.8.3.1-23.el7_8 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+============================================================================================================================
+ Package                 Arch                  Version                          Repository                             Size
+============================================================================================================================
+Installing:
+ git                     x86_64                1.8.3.1-23.el7_8                 rhel-7-server-htb-rpms                4.4 M
+Installing for dependencies:
+ perl-Git                noarch                1.8.3.1-23.el7_8                 rhel-7-server-htb-rpms                 56 k
+
+Transaction Summary
+============================================================================================================================
+Install  1 Package (+1 Dependent package)
+
+Total download size: 4.5 M
+Installed size: 22 M
+Downloading packages:
+(1/2): perl-Git-1.8.3.1-23.el7_8.noarch.rpm                                                          |  56 kB  00:00:05
+(2/2): git-1.8.3.1-23.el7_8.x86_64.rpm                                                               | 4.4 MB  00:00:10
+----------------------------------------------------------------------------------------------------------------------------
+Total                                                                                       430 kB/s | 4.5 MB  00:00:10
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : perl-Git-1.8.3.1-23.el7_8.noarch                                                                         1/2
+  Installing : git-1.8.3.1-23.el7_8.x86_64                                                                              2/2
+  Verifying  : git-1.8.3.1-23.el7_8.x86_64                                                                              1/2
+  Verifying  : perl-Git-1.8.3.1-23.el7_8.noarch                                                                         2/2
+
+Installed:
+  git.x86_64 0:1.8.3.1-23.el7_8
+
+Dependency Installed:
+  perl-Git.noarch 0:1.8.3.1-23.el7_8
+
+Complete!
+
+===> Downloading OpenEMR repository...
+
+Cloning into 'openemr'...
+remote: Enumerating objects: 1, done.
+remote: Counting objects: 100% (1/1), done.
+remote: Total 135486 (delta 0), reused 0 (delta 0), pack-reused 135485
+Receiving objects: 100% (135486/135486), 448.90 MiB | 9.04 MiB/s, done.
+Resolving deltas: 100% (86893/86893), done.
+remote: Enumerating objects: 420, done.
+remote: Counting objects: 100% (420/420), done.
+remote: Compressing objects: 100% (51/51), done.
+remote: Total 580 (delta 375), reused 397 (delta 365), pack-reused 160
+Receiving objects: 100% (580/580), 965.38 KiB | 693.00 KiB/s, done.
+Resolving deltas: 100% (408/408), completed with 232 local objects.
+From https://github.com/openemr/openemr
+ * [new branch]      covid19--cdc-pui-case-report-form -> upstream/covid19--cdc-pui-case-report-form
+ * [new branch]      dependabot/npm_and_yarn/fstream-1.0.12 -> upstream/dependabot/npm_and_yarn/fstream-1.0.12
+ * [new branch]      fax-module -> upstream/fax-module
+ * [new branch]      feature/gh-2424 -> upstream/feature/gh-2424
+ * [new branch]      google-cloud-ci-try_1 -> upstream/google-cloud-ci-try_1
+ * [new branch]      master     -> upstream/master
+ * [new branch]      rel-320    -> upstream/rel-320
+ * [new branch]      rel-400    -> upstream/rel-400
+ * [new branch]      rel-410    -> upstream/rel-410
+ * [new branch]      rel-411    -> upstream/rel-411
+ * [new branch]      rel-412    -> upstream/rel-412
+ * [new branch]      rel-413    -> upstream/rel-413
+ * [new branch]      rel-420    -> upstream/rel-420
+ * [new branch]      rel-421    -> upstream/rel-421
+ * [new branch]      rel-422    -> upstream/rel-422
+ * [new branch]      rel-430    -> upstream/rel-430
+ * [new branch]      rel-500    -> upstream/rel-500
+ * [new branch]      rel-501    -> upstream/rel-501
+ * [new branch]      rel-502    -> upstream/rel-502
+From https://github.com/openemr/openemr
+ * [new tag]         v5_0_2_4   -> v5_0_2_4
+
+===> Pulling the latest data...
+
+From https://github.com/openemr/openemr
+ * branch            master     -> FETCH_HEAD
+Updating 3be1d6a..32f7acb
+Fast-forward
+ .gitignore                                                                     |    5 +-
+ .travis.yml                                                                    |   63 +-
+ API_README.md                                                                  |  148 +-
+ CONTRIBUTING.md                                                                |  141 +-
+ Documentation/Readme_edihistory.html                                           |    5 +-
+ Documentation/help_files/add_edit_transactions_dashboard_help.php              |    2 +-
+ Documentation/help_files/adminacl_help.php                                     |    2 +-
+ Documentation/help_files/cms_1500_help.php                                     |    2 +-
+ Documentation/help_files/configure_orders_help.php                             |    2 +-
+ Documentation/help_files/fee_sheet_help.php                                    |    4 +-
+ Documentation/help_files/history_dashboard_help.php                            |    2 +-
+ Documentation/help_files/issues_dashboard_help.php                             |    2 +-
+ Documentation/help_files/ledger_dashboard_help.php                             |   50 +-
+ Documentation/help_files/medical_dashboard_help.php                            |    2 +-
+ Documentation/help_files/message_center_help.php                               |    2 +-
+ Documentation/help_files/mfa_help.php                                          |    2 +-
+ Documentation/help_files/openemr_installation_help.php                         |    2 +-
+ Documentation/help_files/openemr_multisite_admin_help.php                      |    2 +-
+ Documentation/help_files/procedure_provider_help.php                           |    2 +-
+ Documentation/help_files/report_dashboard_help.php                             |    2 +-
+ Documentation/help_files/sl_eob_help.php                                       |    2 +-
+ Documentation/help_files/transactions_dashboard_help.php                       |    2 +-
+ FHIR_README.md                                                                 |   89 +-
+ _rest_config.php                                                               |   48 +
+ _rest_routes.inc.php                                                           |  589 +++-
+ apis/dispatch.php                                                              |    2 +
+ ccr/display.php                                                                |    3 +-
+ ci/apache_73_101/docker-compose.yml                                            |   22 -
+ ci/apache_73_102/docker-compose.yml                                            |    2 +-
+ ci/apache_73_103/docker-compose.yml                                            |    2 +-
+ ci/apache_73_104/docker-compose.yml                                            |    2 +-
+ ci/apache_73_105/docker-compose.yml                                            |    2 +-
+ ci/apache_73_56/docker-compose.yml                                             |   22 -
+ ci/apache_73_57/docker-compose.yml                                             |    2 +-
+ ci/apache_73_8/docker-compose.yml                                              |    2 +-
+ ci/nginx_72/docker-compose.yml                                                 |    2 +-
+ ci/nginx_73/docker-compose.yml                                                 |    2 +-
+ ci/nginx_74/docker-compose.yml                                                 |    2 +-
+ ci/nginx_80/docker-compose.yml                                                 |    2 +-
+ composer.json                                                                  |    1 -
+ composer.lock                                                                  |   59 +-
+ config/config.yaml                                                             |   26 +-
+ contrib/forms/handwritten-notes/hw-notes.php                                   |   24 +-
+ contrib/forms/handwritten-notes/new.php                                        |    2 +-
+ contrib/forms/xmlformgen/xslt/new.php.xslt                                     |    2 +-
+ contrib/forms/xmlformgen/xslt/print.php.xslt                                   |    2 +-
+ contrib/forms/xmlformgen/xslt/show.php.xslt                                    |    2 +-
+ contrib/forms/xmlformgen/xslt/view.php.xslt                                    |    2 +-
+ contrib/util/docker/README.md                                                  |   23 +-
+ contrib/util/docker/couchdb-config-ssl-cert-keys/README.md                     |   27 +
+ contrib/util/docker/couchdb-config-ssl-cert-keys/easy/ca-key.pem               |   27 +
+ contrib/util/docker/couchdb-config-ssl-cert-keys/easy/ca.pem                   |   22 +
+ contrib/util/docker/couchdb-config-ssl-cert-keys/easy/client-cert.pem          |   20 +
+ contrib/util/docker/couchdb-config-ssl-cert-keys/easy/client-key.pem           |   27 +
+ contrib/util/docker/couchdb-config-ssl-cert-keys/easy/client-req.pem           |   17 +
+ contrib/util/docker/couchdb-config-ssl-cert-keys/easy/server-cert.pem          |   20 +
+ contrib/util/docker/couchdb-config-ssl-cert-keys/easy/server-key.pem           |   27 +
+ contrib/util/docker/couchdb-config-ssl-cert-keys/easy/server-req.pem           |   17 +
+ contrib/util/docker/couchdb-config-ssl-cert-keys/insane/ca-key.pem             |   27 +
+ contrib/util/docker/couchdb-config-ssl-cert-keys/insane/ca.pem                 |   22 +
+ contrib/util/docker/couchdb-config-ssl-cert-keys/insane/client-cert.pem        |   20 +
+ contrib/util/docker/couchdb-config-ssl-cert-keys/insane/client-key.pem         |   27 +
+ contrib/util/docker/couchdb-config-ssl-cert-keys/insane/client-req.pem         |   17 +
+ contrib/util/docker/couchdb-config-ssl-cert-keys/insane/server-cert.pem        |   20 +
+ contrib/util/docker/couchdb-config-ssl-cert-keys/insane/server-key.pem         |   27 +
+ contrib/util/docker/couchdb-config-ssl-cert-keys/insane/server-req.pem         |   17 +
+ contrib/util/docker/couchdb-config-ssl-cert-keys/local.ini                     |   96 +
+ contrib/util/docker/docker-compose.yml                                         |   78 +-
+ contrib/util/docker/ldap-ssl-certs-keys/README.md                              |   25 +
+ contrib/util/docker/ldap-ssl-certs-keys/easy/ca-key.pem                        |   27 +
+ contrib/util/docker/ldap-ssl-certs-keys/easy/ca.pem                            |   22 +
+ contrib/util/docker/ldap-ssl-certs-keys/easy/client-cert.pem                   |   20 +
+ contrib/util/docker/ldap-ssl-certs-keys/easy/client-key.pem                    |   27 +
+ contrib/util/docker/ldap-ssl-certs-keys/easy/client-req.pem                    |   17 +
+ contrib/util/docker/ldap-ssl-certs-keys/easy/server-cert.pem                   |   20 +
+ contrib/util/docker/ldap-ssl-certs-keys/easy/server-key.pem                    |   27 +
+ contrib/util/docker/ldap-ssl-certs-keys/easy/server-req.pem                    |   17 +
+ contrib/util/docker/ldap-ssl-certs-keys/insane/ca-key.pem                      |   27 +
+ contrib/util/docker/ldap-ssl-certs-keys/insane/ca.pem                          |   22 +
+ contrib/util/docker/ldap-ssl-certs-keys/insane/client-cert.pem                 |   20 +
+ contrib/util/docker/ldap-ssl-certs-keys/insane/client-key.pem                  |   27 +
+ contrib/util/docker/ldap-ssl-certs-keys/insane/client-req.pem                  |   17 +
+ contrib/util/docker/ldap-ssl-certs-keys/insane/server-cert.pem                 |   20 +
+ contrib/util/docker/ldap-ssl-certs-keys/insane/server-key.pem                  |   27 +
+ contrib/util/docker/ldap-ssl-certs-keys/insane/server-req.pem                  |   17 +
+ contrib/util/docker/sql-ssl-certs-keys/README.md                               |   25 +
+ contrib/util/docker/sql-ssl-certs-keys/easy/ca-key.pem                         |   27 +
+ contrib/util/docker/sql-ssl-certs-keys/easy/ca.pem                             |   21 +
+ contrib/util/docker/sql-ssl-certs-keys/easy/client-cert.pem                    |   19 +
+ contrib/util/docker/sql-ssl-certs-keys/easy/client-key.pem                     |   27 +
+ contrib/util/docker/sql-ssl-certs-keys/easy/client-req.pem                     |   17 +
+ contrib/util/docker/sql-ssl-certs-keys/easy/server-cert.pem                    |   19 +
+ contrib/util/docker/sql-ssl-certs-keys/easy/server-key.pem                     |   27 +
+ contrib/util/docker/sql-ssl-certs-keys/easy/server-req.pem                     |   16 +
+ contrib/util/docker/sql-ssl-certs-keys/insane/ca-key.pem                       |   27 +
+ contrib/util/docker/sql-ssl-certs-keys/insane/ca.pem                           |   21 +
+ contrib/util/docker/sql-ssl-certs-keys/insane/client-cert.pem                  |   20 +
+ contrib/util/docker/sql-ssl-certs-keys/insane/client-key.pem                   |   27 +
+ contrib/util/docker/sql-ssl-certs-keys/insane/client-req.pem                   |   17 +
+ contrib/util/docker/sql-ssl-certs-keys/insane/server-cert.pem                  |   19 +
+ contrib/util/docker/sql-ssl-certs-keys/insane/server-key.pem                   |   27 +
+ contrib/util/docker/sql-ssl-certs-keys/insane/server-req.pem                   |   17 +
+ contrib/util/installScripts/InstallerAuto.php                                  |    2 +-
+ contrib/util/language_translations/buildLanguageDatabase.pl                    |   76 +-
+ contrib/util/language_translations/currentLanguage_utf8.sql                    |   16 +-
+ contrib/util/ubuntu_package_scripts/production/postinst                        |    2 +
+ contrib/util/ubuntu_package_scripts/production/preinst                         |    2 +
+ controllers/C_Document.class.php                                               |  516 ++--
+ custom/chart_tracker.php                                                       |    4 +-
+ custom/code_types.inc.php                                                      |    2 +
+ docker-compose.yml                                                             |   41 +-
+ gacl/admin/templates/phpgacl/header.tpl                                        |    2 +-
+ gulpfile.js                                                                    |  194 +-
+ interface/README.md                                                            |    4 -
+ interface/batchcom/batchcom.inc.php                                            |    7 +-
+ interface/batchcom/emailnotification.php                                       |   57 +-
+ interface/batchcom/smsnotification.php                                         |   57 +-
+ interface/billing/billing_report.php                                           |   19 +-
+ interface/billing/edih_view.php                                                |   19 +-
+ interface/billing/edit_payment.php                                             |  603 ++--
+ interface/billing/era_payments.php                                             |    4 +-
+ interface/billing/indigent_patients_report.php                                 |   10 +-
+ interface/billing/new_payment.php                                              |    8 +-
+ interface/billing/payment_master.inc.php                                       |   30 +-
+ interface/billing/payment_pat_sel.inc.php                                      |   31 +-
+ interface/billing/search_payments.php                                          |   49 +-
+ interface/billing/sl_eob_invoice.php                                           |  188 +-
+ interface/billing/sl_eob_patient_note.php                                      |    6 +-
+ interface/billing/sl_eob_process.php                                           |    7 +-
+ interface/billing/sl_eob_search.php                                            |   31 +-
+ interface/billing/sl_receipts_report.php                                       |    8 +-
+ interface/drugs/add_edit_drug.php                                              |   36 +-
+ interface/easipro/pro.php                                                      |  448 +--
+ interface/forms/CAMOS/help.html                                                |    2 +-
+ interface/forms/LBF/new.php                                                    |  112 +-
+ interface/forms/bronchitis/table.sql                                           |  148 +-
+ interface/forms/care_plan/new.php                                              |  221 +-
+ interface/forms/clinical_instructions/new.php                                  |   38 +-
+ interface/forms/dictation/new.php                                              |   46 +-
+ interface/forms/dictation/view.php                                             |    8 +-
+ interface/forms/eye_mag/a_issue.php                                            |    1 -
+ interface/forms/eye_mag/view.php                                               |    3 -
+ interface/forms/fee_sheet/new.php                                              |   17 +-
+ interface/forms/functional_cognitive_status/new.php                            |  193 +-
+ interface/forms/misc_billing_options/new.php                                   |  294 +-
+ interface/forms/newGroupEncounter/common.php                                   |   10 +-
+ interface/forms/newpatient/common.php                                          |   28 +-
+ interface/forms/observation/new.php                                            |  317 ++-
+ interface/forms/procedure_order/new.php                                        |   22 +-
+ interface/forms/reviewofs/new.php                                              | 1384 ++++------
+ interface/forms/reviewofs/view.php                                             |   10 +-
+ interface/forms/ros/templates/ros/general_new.html                             |  717 +++--
+ interface/forms/soap/templates/general_new.html                                |   80 +-
+ interface/forms/vitals/templates/vitals/general_new.html                       |  396 ++-
+ interface/forms_admin/forms_admin.php                                          |    4 +-
+ interface/globals.php                                                          |   10 +-
+ interface/language/lang_definition.php                                         |   11 +-
+ interface/language/lang_manage.php                                             |    8 +-
+ interface/language/language.inc.php                                            |    9 +-
+ interface/language/language.php                                                |    2 +-
+ interface/login/login.php                                                      |   27 +-
+ interface/logview/logview.php                                                  |    2 +-
+ interface/main/about_page.php                                                  |    4 +-
+ interface/main/calendar/config.php                                             |   10 +-
+ interface/main/calendar/includes/pnAPI.php                                     |   16 +-
+ interface/main/calendar/includes/pnHTML.php                                    |    4 +-
+ .../main/calendar/modules/PostCalendar/plugins/function.pc_date_select.php     |   18 +-
+ interface/main/calendar/modules/PostCalendar/pnadmin.php                       |    2 +-
+ interface/main/calendar/modules/PostCalendar/pnincludes/AnchorPosition.js      |  188 +-
+ interface/main/calendar/modules/PostCalendar/pnincludes/ColorPicker2.js        |  218 +-
+ interface/main/calendar/modules/PostCalendar/pnincludes/PopupWindow.js         |  425 ++-
+ interface/main/calendar/modules/PostCalendar/pnincludes/overlib_mini.js        | 1836 ++++++++-----
+ .../modules/PostCalendar/pntemplates/default/admin/submit_category.html        |  112 +-
+ .../calendar/modules/PostCalendar/pntemplates/default/user/ajax_search.html    |    4 +-
+ .../modules/PostCalendar/pntemplates/default/views/day/ajax_template.html      |   95 +-
+ .../pntemplates/default/views/day_print/outlook_ajax_template.html             |    6 +-
+ .../main/calendar/modules/PostCalendar/pntemplates/default/views/footer.html   |    3 -
+ .../main/calendar/modules/PostCalendar/pntemplates/default/views/header.html   |    1 -
+ .../modules/PostCalendar/pntemplates/default/views/month/ajax_template.html    |  113 +-
+ .../calendar/modules/PostCalendar/pntemplates/default/views/monthSelector.php  |   18 +-
+ .../pntemplates/default/views/month_print/outlook_ajax_template.html           |    4 +-
+ .../modules/PostCalendar/pntemplates/default/views/week/ajax_template.html     |   96 +-
+ .../pntemplates/default/views/week_print/outlook_ajax_template.html            |    4 +-
+ interface/main/dated_reminders/dated_reminders_add.php                         |    2 +-
+ interface/main/dated_reminders/dated_reminders_log.php                         |    2 +-
+ interface/main/finder/dynamic_finder.php                                       |   66 +-
+ interface/main/main_screen.php                                                 |   20 +-
+ interface/main/messages/messages.php                                           |   10 +-
+ interface/main/pwd_expires_alert.php                                           |    4 +-
+ interface/main/tabs/main.php                                                   |    5 +-
+ interface/main/tabs/menu/menus/standard.json                                   |   12 +
+ interface/main/tabs/templates/patient_data_template.php                        |    2 +-
+ interface/modules/zend_modules/config/autoload/global.php                      |   17 +-
+ .../zend_modules/module/Application/src/Application/Plugin/CommonPlugin.php    |  117 +-
+ .../src/Carecoordination/Controller/CarecoordinationController.php             |  436 +--
+ .../src/Carecoordination/Controller/EncounterccdadispatchController.php        |    8 +-
+ .../Carecoordination/src/Carecoordination/Model/EncounterccdadispatchTable.php |  747 ++---
+ .../Carecoordination/src/Carecoordination/Model/EncountermanagerTable.php      |   29 +-
+ .../module/Carecoordination/view/carecoordination/setup/index.phtml            |    3 +
+ .../modules/zend_modules/module/Carecoordination/view/layout/mapper.phtml      |   52 +-
+ interface/modules/zend_modules/module/Carecoordination/view/layout/setup.phtml |    8 +-
+ .../modules/zend_modules/module/Documents/src/Documents/Plugin/Documents.php   |   50 +-
+ .../module/Immunization/src/Immunization/Controller/ImmunizationController.php |  496 ++--
+ .../module/Immunization/src/Immunization/Form/ImmunizationForm.php             |  129 +-
+ .../module/Immunization/src/Immunization/Model/ImmunizationTable.php           |  196 +-
+ .../zend_modules/module/Installer/src/Installer/Model/InstModuleTable.php      |   25 +-
+ .../module/Multipledb/src/Multipledb/Controller/BaseController.php             |    2 +-
+ interface/new/new_comprehensive.php                                            |    4 +-
+ interface/orders/list_reports.php                                              |    4 +-
+ interface/orders/load_compendium.php                                           |    2 +-
+ interface/orders/order_manifest.php                                            |  304 +--
+ interface/orders/procedure_provider_edit.php                                   |    6 +-
+ interface/orders/procedure_provider_list.php                                   |    2 +-
+ interface/orders/single_order_results.inc.php                                  |  147 +-
+ interface/orders/types.php                                                     |    6 +-
+ interface/orders/types_edit.php                                                |    8 +-
+ interface/patient_file/ccr_import.php                                          |   29 +-
+ interface/patient_file/ccr_pending_approval.php                                |  123 +-
+ interface/patient_file/deleter.php                                             |  493 ++--
+ interface/patient_file/education.php                                           |   30 +-
+ interface/patient_file/encounter/delete_form.php                               |   69 +-
+ interface/patient_file/encounter/find_code_dynamic.php                         |   56 +-
+ interface/patient_file/encounter/find_code_popup.php                           |  337 ++-
+ interface/patient_file/encounter/forms.php                                     |  121 +-
+ interface/patient_file/encounter/select_codes.php                              |  183 ++
+ interface/patient_file/front_payment.php                                       |   22 +-
+ interface/patient_file/history/edit_billnote.php                               |   90 +-
+ interface/patient_file/history/encounters.php                                  | 1127 ++++----
+ interface/patient_file/history/history.php                                     |    8 +-
+ interface/patient_file/history/history_full.php                                |   15 +-
+ interface/patient_file/pos_checkout.php                                        |   31 +-
+ interface/patient_file/reminder/patient_reminders.php                          |    4 +-
+ interface/patient_file/report/custom_report.js                                 |   10 +-
+ interface/patient_file/report/custom_report.php                                |   17 +-
+ interface/patient_file/report/patient_report.php                               |    4 +-
+ interface/patient_file/summary/add_edit_amendments.php                         |  223 +-
+ interface/patient_file/summary/add_edit_issue.php                              | 1226 +++++----
+ interface/patient_file/summary/advancedirectives.php                           |    4 +-
+ interface/patient_file/summary/dashboard_header.php                            |    4 +-
+ interface/patient_file/summary/dashboard_header_simple_return.php              |    4 +-
+ interface/patient_file/summary/demographics.php                                |   14 -
+ interface/patient_file/summary/demographics_full.php                           |    4 +-
+ interface/patient_file/summary/disclosure_full.php                             |  214 +-
+ interface/patient_file/summary/immunizations.php                               |  988 ++++---
+ interface/patient_file/summary/labdata.php                                     |  759 ++---
+ interface/patient_file/summary/list_amendments.php                             |  132 +-
+ interface/patient_file/summary/pnotes_full.php                                 |  848 +++---
+ interface/patient_file/summary/pnotes_full_add.php                             |  342 ++-
+ interface/patient_file/summary/record_disclosure.php                           |  156 +-
+ interface/patient_file/summary/stats_full.php                                  |   12 +-
+ interface/patient_file/transaction/record_request.php                          |   17 +-
+ interface/patient_tracker/patient_tracker.php                                  |  301 +-
+ interface/patient_tracker/patient_tracker_status.php                           |   10 +-
+ interface/reports/collections_report.php                                       |    6 +-
+ interface/reports/immunization_report.php                                      |  321 +--
+ interface/reports/pat_ledger.php                                               |    6 +-
+ interface/reports/patient_edu_web_lookup.php                                   |    4 +-
+ interface/reports/receipts_by_method_report.php                                |   27 +-
+ interface/reports/report_results.php                                           |   10 +-
+ interface/reports/svc_code_financial_report.php                                |    5 +-
+ interface/super/edit_globals.php                                               |    7 +-
+ interface/super/edit_layout.php                                                |  567 ++--
+ interface/super/rules/base/template/basic.php                                  |    6 +-
+ interface/super/rules/www/css/jQuery.autocomplete.css                          |   46 -
+ interface/super/rules/www/css/rules.css                                        |  159 --
+ interface/themes/ajax_calendar_sass.scss                                       |  593 ++--
+ interface/themes/color_base.scss                                               |   81 +-
+ interface/themes/colors/utilities/batch-payments.scss                          |    1 -
+ interface/themes/colors/utilities/bootstrap-nav-menu.scss                      |   45 +-
+ interface/themes/colors/utilities/bootstrap.scss                               |   40 +-
+ interface/themes/colors/utilities/default_variables.scss                       |   19 +-
+ interface/themes/colors/utilities/edit_globals_colors.scss                     |   48 +-
+ interface/themes/colors/utilities/recall-flow-board.scss                       |    2 +-
+ interface/themes/colors/utilities/tabs-full.scss                               |   87 +-
+ interface/themes/compact-theme-defaults.scss                                   |   33 +
+ interface/themes/core.scss                                                     |    3 -
+ interface/themes/core/FontAwesome.scss                                         |    8 +
+ interface/themes/core/addressbook.scss                                         |    2 +-
+ interface/themes/core/closeDlgIframe.scss                                      |   24 +-
+ interface/themes/core/documents.scss                                           |    4 +-
+ interface/themes/core/edit_globals.scss                                        |   71 +-
+ interface/themes/core/forms.scss                                               |   22 +-
+ interface/themes/core/links.scss                                               |    8 +-
+ interface/themes/core/list-table.scss                                          |   32 +-
+ interface/themes/core/navmenu.scss                                             |  171 +-
+ interface/themes/core/oe-mobile.scss                                           |   28 +-
+ interface/themes/core/patient/demographics.scss                                |   38 +-
+ interface/themes/core/patient/history.scss                                     |   38 +-
+ interface/themes/core/patient/notes.scss                                       |   52 +-
+ interface/themes/core/patient/past_encounters.scss                             |  108 +-
+ interface/themes/core/patient/report_custom.scss                               |   88 +-
+ interface/themes/core/patient/reports.scss                                     |   38 +-
+ interface/themes/core/patient/stats.scss                                       |   30 +-
+ interface/themes/core/patient/stats_summary.scss                               |   30 +-
+ interface/themes/core/reports.scss                                             |   52 +-
+ interface/themes/core/sddm.scss                                                |   68 +-
+ interface/themes/core/tabs.scss                                                |   88 +-
+ interface/themes/core/text.scss                                                |   15 +-
+ interface/themes/core/therapy-groups.scss                                      |    8 +-
+ interface/themes/login_page.scss                                               |   86 +-
+ .../css/bootstrap_navbar.css => interface/themes/misc/bootstrap_navbar.scss    |   90 +-
+ library/css/edi_history_v2.css => interface/themes/misc/edi_history_v2.scss    |  170 +-
+ interface/themes/misc/encounters.scss                                          |   83 +
+ interface/themes/{ => misc}/labdata.scss                                       |    0
+ interface/themes/misc/rules.scss                                               |  173 ++
+ interface/themes/navigation-slide/_color.scss                                  |    2 +-
+ interface/themes/navigation-slide/_future-bootstrap.scss                       |    4 +-
+ interface/themes/oe-bootstrap.scss                                             |   96 +-
+ interface/themes/oe-common/acl-common.scss                                     |    4 +-
+ interface/themes/oe-common/oe-sidebar.scss                                     |    8 +-
+ interface/themes/oe-common/procedures-common.scss                              |    4 +-
+ interface/themes/oe-styles/style_manila.scss                                   |   65 +-
+ interface/themes/oe-styles/{style_superhero.scss => style_solar.scss}          |  140 +-
+ interface/themes/patientportal-style.scss                                      |   58 +-
+ interface/themes/rtl_style_pdf.css                                             |    8 -
+ interface/themes/style.scss                                                    |    6 +-
+ interface/themes/tabs_style_full.scss                                          |    6 +-
+ interface/themes/theme-defaults.scss                                           |   48 +-
+ interface/themes/themeBuilder.php                                              |   39 -
+ interface/usergroup/adminacl.php                                               |    8 +-
+ interface/usergroup/facilities.php                                             |    8 +-
+ interface/usergroup/facility_user_admin.php                                    |    2 +-
+ interface/usergroup/mfa_registrations.php                                      |    6 +-
+ interface/usergroup/mfa_totp.php                                               |   10 +-
+ interface/usergroup/mfa_u2f.php                                                |    6 +-
+ interface/usergroup/ssl_certificates_admin.php                                 |  237 +-
+ interface/usergroup/user_admin.php                                             |    2 +-
+ interface/usergroup/user_info.php                                              |    2 -
+ interface/usergroup/usergroup_admin.php                                        |   11 +-
+ library/FeeSheet.class.php                                                     |   70 +-
+ library/FeeSheetHtml.class.php                                                 |   20 +-
+ library/MedEx/API.php                                                          |  377 ++-
+ library/ajax/ccr_import_ajax.php                                               |    3 +-
+ library/ajax/prescription_drugname_lookup.php                                  |    4 +-
+ library/ajax/sql_server_status.php                                             |   56 +
+ library/ajax/upload.php                                                        |   53 +-
+ library/auth.inc                                                               |   10 +-
+ library/classes/CategoryTree.class.php                                         |    2 +-
+ library/classes/CouchDB.class.php                                              |  140 +-
+ library/classes/Document.class.php                                             |  209 +-
+ library/classes/Installer.class.php                                            |   88 +-
+ library/classes/thumbnail/ThumbnailGenerator.php                               |    4 +-
+ library/create_ssl_certificate.php                                             |   62 +-
+ library/css/encounters.css                                                     |   74 -
+ library/custom_template/add_custombutton.php                                   |   93 +-
+ library/custom_template/custom_template.php                                    |  296 +-
+ library/custom_template/personalize.php                                        |  318 ++-
+ library/daysheet.inc.php                                                       |    4 +-
+ library/deletedrug.php                                                         |   48 +-
+ library/dialog.js                                                              |   57 +-
+ library/dicom_frame.php                                                        |  503 +++-
+ library/forms.inc                                                              |    2 +-
+ library/globals.inc.php                                                        |   85 +-
+ library/js/calendarDirectSelect.js                                             |   89 +-
+ library/js/dwv/dicom_gui.js                                                    |  368 ++-
+ library/js/dwv/dicom_launcher.js                                               |  300 +-
+ library/js/dwv/gui/browser.js                                                  |  215 ++
+ library/js/dwv/gui/colourMap.js                                                |   87 +
+ library/js/dwv/gui/custom.js                                                   |   64 +
+ library/js/dwv/gui/dropboxLoader.js                                            |  125 +
+ library/js/dwv/gui/filter.js                                                   |  246 ++
+ library/js/dwv/gui/generic.js                                                  |  374 +++
+ library/js/dwv/gui/help.js                                                     |  105 +
+ library/js/dwv/gui/html.js                                                     |  575 ++++
+ library/js/dwv/gui/infoController.js                                           |  156 ++
+ library/js/dwv/gui/infoOverlay.js                                              |  304 +++
+ library/js/dwv/gui/loader.js                                                   |  247 ++
+ library/js/dwv/gui/plot.js                                                     |   70 +
+ library/js/dwv/gui/resources/help/click.png                                    |  Bin 0 -> 1557 bytes
+ library/js/dwv/gui/resources/help/double_click.png                             |  Bin 0 -> 1474 bytes
+ library/js/dwv/gui/resources/help/mouse_drag.png                               |  Bin 0 -> 1534 bytes
+ library/js/dwv/gui/resources/help/mouse_wheel.png                              |  Bin 0 -> 1303 bytes
+ library/js/dwv/gui/tools.js                                                    |  564 ++++
+ library/js/dwv/gui/undo.js                                                     |  110 +
+ library/js/utility.js                                                          |   34 +-
+ library/openssl.cnf                                                            |  313 ---
+ library/options.inc.php                                                        |   12 +-
+ library/patient.inc                                                            |    4 +-
+ library/payment.inc.php                                                        |   34 +-
+ library/payment_jav.inc.php                                                    |  152 +-
+ library/sql.inc                                                                |   25 +-
+ library/sql_upgrade_fx.php                                                     |  663 +++--
+ library/standard_tables_capture.inc                                            |   21 +-
+ package-lock.json                                                              | 5316 ++++++++++--------------------------
+ package.json                                                                   |   55 +-
+ portal/account/account.lib.php                                                 |   92 +-
+ portal/account/account.php                                                     |   23 +-
+ portal/account/register.php                                                    |   61 +-
+ portal/get_patient_documents.php                                               |   10 +-
+ portal/home.php                                                                |    8 +-
+ portal/messaging/handle_note.php                                               |   31 +-
+ portal/messaging/messages.php                                                  |    4 +-
+ portal/patient/_machine_config.php                                             |    6 +-
+ portal/patient/fwk/libs/verysimple/DB/DataDriver/MySQLi.php                    |    4 +
+ portal/patient/fwk/libs/verysimple/Phreeze/Criteria.php                        |   76 +-
+ portal/patient/libs/Controller/PatientController.php                           |   59 +-
+ portal/patient/libs/Controller/PortalPatientController.php                     |    8 +-
+ portal/patient/libs/Model/DAO/UserCriteriaDAO.php                              |   16 +-
+ portal/patient/libs/Model/DAO/UserDAO.php                                      |  172 +-
+ portal/patient/libs/Model/DAO/UserMap.php                                      |    1 +
+ portal/patient/libs/Reporter/UserReporter.php                                  |    3 +-
+ portal/patient/scripts/app/patientdata.js                                      | 1017 +++----
+ portal/patient/scripts/model.js                                                |    4 +-
+ portal/portal_payment.php                                                      |   28 +-
+ portal/report/pat_ledger.php                                                   |    4 +-
+ portal/report/portal_custom_report.php                                         |   14 +-
+ portal/report/portal_patient_report.php                                        |    4 +-
+ setup.php                                                                      |  688 +++--
+ sites/default/documents/certificates/README.md                                 |   28 +-
+ sites/default/sqlconf.php                                                      |    3 +-
+ sql/5_0_2-to-6_0_0_upgrade.sql                                                 |  366 ++-
+ sql/database.sql                                                               |  264 +-
+ sql_upgrade.php                                                                |  276 +-
+ src/Billing/BillingReport.php                                                  |    4 +-
+ src/Billing/BillingUtilities.php                                               |   16 +-
+ src/Billing/Claim.php                                                          |   11 +-
+ src/Billing/EDI270.php                                                         |    1 +
+ src/Billing/InvoiceSummary.php                                                 |    8 +-
+ src/Common/Auth/AuthUtils.php                                                  |   50 +
+ src/Common/Database/Connector.php                                              |   30 +-
+ src/Common/ORDataObject/ORDataObject.php                                       |    2 +-
+ src/Common/Uuid/UuidMapping.php                                                |   40 +
+ src/Common/Uuid/UuidRegistry.php                                               |   59 +-
+ src/Core/Header.php                                                            |   16 +-
+ src/Core/ModulesApplication.php                                                |   23 +-
+ src/Events/Facility/FacilityCreatedEvent.php                                   |   51 +
+ src/Events/Facility/FacilityUpdatedEvent.php                                   |   70 +
+ src/Events/User/UserCreatedEvent.php                                           |   51 +
+ src/Events/User/UserUpdatedEvent.php                                           |   70 +
+ src/Gacl/Gacl.php                                                              |   56 +-
+ src/RestControllers/AllergyIntoleranceRestController.php                       |   81 +
+ src/RestControllers/AuthRestController.php                                     |    2 +
+ src/RestControllers/ConditionRestController.php                                |   81 +
+ src/RestControllers/DrugRestController.php                                     |   50 +
+ src/RestControllers/FHIR/FhirAllergyIntoleranceRestController.php              |   97 +-
+ src/RestControllers/FHIR/FhirConditionRestController.php                       |   95 +-
+ src/RestControllers/FHIR/FhirImmunizationRestController.php                    |  108 +-
+ src/RestControllers/FHIR/FhirLocationRestController.php                        |   64 +
+ src/RestControllers/FHIR/FhirMedicationRequestRestController.php               |   64 +
+ src/RestControllers/FHIR/FhirMedicationRestController.php                      |   90 +-
+ src/RestControllers/FHIR/FhirMedicationStatementRestController.php             |   79 -
+ src/RestControllers/FHIR/FhirObservationRestController.php                     |  133 +-
+ src/RestControllers/FHIR/FhirProcedureRestController.php                       |   95 +-
+ src/RestControllers/ImmunizationRestController.php                             |   56 +
+ src/RestControllers/PrescriptionRestController.php                             |   50 +
+ src/RestControllers/ProcedureRestController.php                                |   51 +
+ src/Services/AllergyIntoleranceService.php                                     |  297 ++
+ src/Services/BaseService.php                                                   |   20 +
+ src/Services/ConditionService.php                                              |  283 ++
+ src/Services/DrugService.php                                                   |  147 +
+ src/Services/EncounterService.php                                              |    8 +-
+ src/Services/FHIR/FhirAllergyIntoleranceService.php                            |  349 ++-
+ src/Services/FHIR/FhirConditionService.php                                     |  311 ++-
+ src/Services/FHIR/FhirImmunizationService.php                                  |  368 +--
+ src/Services/FHIR/FhirLocationService.php                                      |  152 ++
+ src/Services/FHIR/FhirMedicationRequestService.php                             |  226 ++
+ src/Services/FHIR/FhirMedicationService.php                                    |  218 +-
+ src/Services/FHIR/FhirMedicationStatementService.php                           |  195 --
+ src/Services/FHIR/FhirObservationService.php                                   |  450 +--
+ src/Services/FHIR/FhirProcedureService.php                                     |  319 +--
+ src/Services/FacilityService.php                                               |   23 +-
+ src/Services/ImmunizationService.php                                           |  233 ++
+ src/Services/InsuranceCompanyService.php                                       |    7 +
+ src/Services/LocationService.php                                               |  187 ++
+ src/Services/ObservationLabService.php                                         |  124 +
+ src/Services/PractitionerRoleService.php                                       |    6 +-
+ src/Services/PractitionerService.php                                           |    6 +-
+ src/Services/PrescriptionService.php                                           |  157 ++
+ src/Services/ProcedureService.php                                              |  193 ++
+ src/Validators/AllergyIntoleranceValidator.php                                 |   65 +
+ src/Validators/ConditionValidator.php                                          |   62 +
+ src/Validators/ImmunizationValidator.php                                       |   25 +
+ templates/documents/general_list.html                                          |   44 +-
+ templates/documents/general_queue.html                                         |   59 -
+ templates/documents/general_upload.html                                        |  120 +-
+ templates/documents/general_view.html                                          |    4 +-
+ templates/practice_settings/general_list.html                                  |    4 +-
+ templates/prescription/general_edit.html                                       |  379 +--
+ templates/prescription/general_list.html                                       |  338 ++-
+ templates/prescription/general_lookup.html                                     |    5 +-
+ version.php                                                                    |    2 +-
+ 481 files changed, 28957 insertions(+), 22595 deletions(-)
+ delete mode 100644 ci/apache_73_101/docker-compose.yml
+ delete mode 100644 ci/apache_73_56/docker-compose.yml
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/README.md
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/easy/ca-key.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/easy/ca.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/easy/client-cert.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/easy/client-key.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/easy/client-req.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/easy/server-cert.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/easy/server-key.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/easy/server-req.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/insane/ca-key.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/insane/ca.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/insane/client-cert.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/insane/client-key.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/insane/client-req.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/insane/server-cert.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/insane/server-key.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/insane/server-req.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/local.ini
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/README.md
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/easy/ca-key.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/easy/ca.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/easy/client-cert.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/easy/client-key.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/easy/client-req.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/easy/server-cert.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/easy/server-key.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/easy/server-req.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/insane/ca-key.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/insane/ca.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/insane/client-cert.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/insane/client-key.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/insane/client-req.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/insane/server-cert.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/insane/server-key.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/insane/server-req.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/README.md
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/easy/ca-key.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/easy/ca.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/easy/client-cert.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/easy/client-key.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/easy/client-req.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/easy/server-cert.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/easy/server-key.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/easy/server-req.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/insane/ca-key.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/insane/ca.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/insane/client-cert.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/insane/client-key.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/insane/client-req.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/insane/server-cert.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/insane/server-key.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/insane/server-req.pem
+ create mode 100644 interface/patient_file/encounter/select_codes.php
+ delete mode 100644 interface/super/rules/www/css/jQuery.autocomplete.css
+ delete mode 100644 interface/super/rules/www/css/rules.css
+ create mode 100644 interface/themes/compact-theme-defaults.scss
+ rename library/css/bootstrap_navbar.css => interface/themes/misc/bootstrap_navbar.scss (51%)
+ rename library/css/edi_history_v2.css => interface/themes/misc/edi_history_v2.scss (90%)
+ create mode 100644 interface/themes/misc/encounters.scss
+ rename interface/themes/{ => misc}/labdata.scss (100%)
+ create mode 100644 interface/themes/misc/rules.scss
+ rename interface/themes/oe-styles/{style_superhero.scss => style_solar.scss} (61%)
+ delete mode 100644 interface/themes/themeBuilder.php
+ create mode 100644 library/ajax/sql_server_status.php
+ delete mode 100644 library/css/encounters.css
+ create mode 100644 library/js/dwv/gui/browser.js
+ create mode 100644 library/js/dwv/gui/colourMap.js
+ create mode 100644 library/js/dwv/gui/custom.js
+ create mode 100644 library/js/dwv/gui/dropboxLoader.js
+ create mode 100644 library/js/dwv/gui/filter.js
+ create mode 100644 library/js/dwv/gui/generic.js
+ create mode 100644 library/js/dwv/gui/help.js
+ create mode 100644 library/js/dwv/gui/html.js
+ create mode 100644 library/js/dwv/gui/infoController.js
+ create mode 100644 library/js/dwv/gui/infoOverlay.js
+ create mode 100644 library/js/dwv/gui/loader.js
+ create mode 100644 library/js/dwv/gui/plot.js
+ create mode 100644 library/js/dwv/gui/resources/help/click.png
+ create mode 100644 library/js/dwv/gui/resources/help/double_click.png
+ create mode 100644 library/js/dwv/gui/resources/help/mouse_drag.png
+ create mode 100644 library/js/dwv/gui/resources/help/mouse_wheel.png
+ create mode 100644 library/js/dwv/gui/tools.js
+ create mode 100644 library/js/dwv/gui/undo.js
+ delete mode 100644 library/openssl.cnf
+ create mode 100644 src/Common/Uuid/UuidMapping.php
+ create mode 100644 src/Events/Facility/FacilityCreatedEvent.php
+ create mode 100644 src/Events/Facility/FacilityUpdatedEvent.php
+ create mode 100644 src/Events/User/UserCreatedEvent.php
+ create mode 100644 src/Events/User/UserUpdatedEvent.php
+ create mode 100644 src/RestControllers/AllergyIntoleranceRestController.php
+ create mode 100644 src/RestControllers/ConditionRestController.php
+ create mode 100644 src/RestControllers/DrugRestController.php
+ create mode 100644 src/RestControllers/FHIR/FhirLocationRestController.php
+ create mode 100644 src/RestControllers/FHIR/FhirMedicationRequestRestController.php
+ delete mode 100644 src/RestControllers/FHIR/FhirMedicationStatementRestController.php
+ create mode 100644 src/RestControllers/ImmunizationRestController.php
+ create mode 100644 src/RestControllers/PrescriptionRestController.php
+ create mode 100644 src/RestControllers/ProcedureRestController.php
+ create mode 100644 src/Services/AllergyIntoleranceService.php
+ create mode 100644 src/Services/ConditionService.php
+ create mode 100644 src/Services/DrugService.php
+ create mode 100644 src/Services/FHIR/FhirLocationService.php
+ create mode 100644 src/Services/FHIR/FhirMedicationRequestService.php
+ delete mode 100644 src/Services/FHIR/FhirMedicationStatementService.php
+ create mode 100644 src/Services/ImmunizationService.php
+ create mode 100644 src/Services/LocationService.php
+ create mode 100644 src/Services/ObservationLabService.php
+ create mode 100644 src/Services/PrescriptionService.php
+ create mode 100644 src/Services/ProcedureService.php
+ create mode 100644 src/Validators/AllergyIntoleranceValidator.php
+ create mode 100644 src/Validators/ConditionValidator.php
+ create mode 100644 src/Validators/ImmunizationValidator.php
+ delete mode 100644 templates/documents/general_queue.html
+
+===> Docker is already installed.
+
+===> Installing docker-compose...
+
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+381             code_dir_exist_or_not $1 $2
+382             install_docker
+383             install_docker_compose
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   651  100   651    0     0    840      0 --:--:-- --:--:-- --:--:--   841
+100 11.6M  100 11.6M    0     0  1027k      0  0:00:11  0:00:11 --:--:-- 1151k
+
+===> Installing openemr-cmd...
+
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 18407  100 18407    0     0  16880      0  0:00:01  0:00:01 --:--:-- 16887
+
+
+*****************Quick Check*****************
+git version 1.8.3.1
+Docker version 1.13.1, build 64e9980/1.13.1
+docker-compose version 1.26.2, build eefe0d31
+openemer-cmd 1.0.6
+The docker status: active
+*********************************************
+
+*****************************Startup Env*****************************
+NOTE: Please log out and back in for using docker as a non-root user to take effect if ubuntu/debian.
+==>Run the below command to startup easy env.
+cd /home/cts/code/openemr && sudo docker-compose up
+==>Or run the below command to startup insane env.
+cd /home/cts/code/openemr/contrib/util/docker && sudo docker-compose up
+*********************************************************************
+
+
+# ./openemr-env-installer /home/cts/code reidliu41
+===> Both of base and extras repo are already enabled.
+
+===> Git is already installed.
+
+===> OpenEMR repo is already downloaded.
+
+===> Docker is already installed.
+
+===> Docker-compose is already installed.
+
+===> OpenEMR-cmd is already installed.
+
+*****************Quick Check*****************
+git version 1.8.3.1
+Docker version 1.13.1, build 64e9980/1.13.1
+docker-compose version 1.26.2, build eefe0d31
+openemer-cmd 1.0.6
+The docker status: active
+*********************************************
+
+*****************************Startup Env*****************************
+NOTE: Please log out and back in for using docker as a non-root user to take effect if ubuntu/debian.
+==>Run the below command to startup easy env.
+cd /home/cts/code/openemr && sudo docker-compose up
+==>Or run the below command to startup insane env.
+cd /home/cts/code/openemr/contrib/util/docker && sudo docker-compose up
+*********************************************************************
