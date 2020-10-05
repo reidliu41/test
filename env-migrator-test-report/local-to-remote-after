@@ -1,0 +1,112 @@
+In local:
+
+# ./openemr-env-migrator -t remote -s /data/docker/ -u root -h xx.xx.xx.122 -d /var/lib/docker/
+===> Checking the target dir...
+
+root@xx.xx.xx.122's password:
+
+===> Stopping the running containers...
+hardcore_montalcini
+openemr_openemr_1
+openemr_openldap_1
+openemr_mysql_1
+openemr_phpmyadmin_1
+openemr_couchdb_1
+
+===> Syncing data to target dir...
+
+root@xx.xx.xx.122's password:
+sending incremental file list
+./
+builder/
+builder/fscache.db
+buildkit/
+buildkit/cache.db
+buildkit/metadata.db
+buildkit/snapshots.db
+buildkit/content/
+buildkit/content/ingest/
+. . . .
+volumes/openemr_vendordir/_data/yubico/u2flib-server/
+volumes/openemr_vendordir/_data/yubico/u2flib-server/.travis.yml
+volumes/openemr_vendordir/_data/yubico/u2flib-server/BLURB
+volumes/openemr_vendordir/_data/yubico/u2flib-server/COPYING
+volumes/openemr_vendordir/_data/yubico/u2flib-server/NEWS
+volumes/openemr_vendordir/_data/yubico/u2flib-server/README
+volumes/openemr_vendordir/_data/yubico/u2flib-server/README.adoc -> README
+volumes/openemr_vendordir/_data/yubico/u2flib-server/apigen.neon
+volumes/openemr_vendordir/_data/yubico/u2flib-server/composer.json
+volumes/openemr_vendordir/_data/yubico/u2flib-server/do-source-release.sh
+volumes/openemr_vendordir/_data/yubico/u2flib-server/phpunit.xml
+volumes/openemr_vendordir/_data/yubico/u2flib-server/psalm.xml
+volumes/openemr_vendordir/_data/yubico/u2flib-server/src/
+volumes/openemr_vendordir/_data/yubico/u2flib-server/src/u2flib_server/
+volumes/openemr_vendordir/_data/yubico/u2flib-server/src/u2flib_server/U2F.php
+
+sent 1,769,740,805 bytes  received 2,050,631 bytes  7,246,590.74 bytes/sec
+total size is 4,256,983,144  speedup is 2.40
+
+
+In remote:
+
+# hostname
+rhel7u8
+
+# ./openemr-env-migrator -t set -d /var/lib/docker/
+===> Setting daemon.json file...
+
+===> Starting the container...
+
+hardcore_montalcini
+openemr_openemr_1
+openemr_openldap_1
+openemr_mysql_1
+openemr_phpmyadmin_1
+openemr_couchdb_1
+
+container status: Up 35 seconds
+# docker ps -a
+CONTAINER ID        IMAGE                   COMMAND                  CREATED             STATUS              PORTS                                                                NAMES
+e2062ae7fa81        nginx                   "/docker-entrypoint.…"   9 days ago          Up 35 seconds       0.0.0.0:8080->80/tcp                                                 hardcore_montalcini
+48dd04dba26c        openemr/openemr:flex    "./run_openemr.sh"       10 days ago         Up 36 seconds       0.0.0.0:8300->80/tcp, 0.0.0.0:9300->443/tcp                          openemr_openemr_1
+25906aeb5629        openemr/dev-ldap:easy   "/container/tool/run"    10 days ago         Up 37 seconds       389/tcp, 636/tcp                                                     openemr_openldap_1
+ffe2e90236ce        mariadb:10.5            "docker-entrypoint.s…"   10 days ago         Up 36 seconds       0.0.0.0:8320->3306/tcp                                               openemr_mysql_1
+57effeaf8a69        phpmyadmin/phpmyadmin   "/docker-entrypoint.…"   10 days ago         Up 37 seconds       0.0.0.0:8310->80/tcp                                                 openemr_phpmyadmin_1
+6043f4608147        couchdb                 "tini -- /docker-ent…"   10 days ago         Up 36 seconds       0.0.0.0:5984->5984/tcp, 4369/tcp, 9100/tcp, 0.0.0.0:6984->6984/tcp   openemr_couchdb_1
+
+# df -h|grep var
+overlay                 50G   13G   38G  25% /var/lib/docker/overlay2/85e35ad0ecc554526815d809611a9e263034b37ce4dd3c46fd316ee7776bd107/merged
+overlay                 50G   13G   38G  25% /var/lib/docker/overlay2/1c1ebddcfa1dab4f6f044beb3f18686e870893b7a491f03dbfb78d5be0bc8c1f/merged
+overlay                 50G   13G   38G  25% /var/lib/docker/overlay2/6ca8584c26f943b6c8bcb7b04a58c8df52d82337aa77e584634e8a32d63340e1/merged
+overlay                 50G   13G   38G  25% /var/lib/docker/overlay2/a99bdeb809ae70766fd136185c07fd5a708cc305d0e2289cbef37171b2025342/merged
+overlay                 50G   13G   38G  25% /var/lib/docker/overlay2/a4c75eb25488d13b8a14bb661736efe8ed5e778339368f404968d96153130ca1/merged
+shm                     64M     0   64M   0% /var/lib/docker/containers/25906aeb562976640010bd1b11d0d91fca3002e43fd951b5f4453965b7b5129b/mounts/shm
+shm                     64M     0   64M   0% /var/lib/docker/containers/57effeaf8a6990f620184e5bb0bf1d6af127c63a5cb9bbdbe20e545c29ff111c/mounts/shm
+shm                     64M     0   64M   0% /var/lib/docker/containers/48dd04dba26cc8bdcb3004436920202ef8c823b691d8576afab81c0779e7c988/mounts/shm
+shm                     64M     0   64M   0% /var/lib/docker/containers/6043f4608147b2b71314d717cd8ba48a84130d056e14b0e2ae2ce272da528914/mounts/shm
+shm                     64M     0   64M   0% /var/lib/docker/containers/ffe2e90236cea3c11833b92c831d14f625f08f76390439688d5d430d96efba30/mounts/shm
+overlay                 50G   13G   38G  25% /var/lib/docker/overlay2/42f56f88503be1405c1b726ee87a483ac06d98143e372a77f024cec4ad23ff33/merged
+
+
+# openemr-cmd -d openemr_openemr_1 e "mysql -u openemr -popenemr -e 'select fname,date from openemr.patient_data;'"
+fname	date
+Tom	2020-09-25 10:35:14
+Kk	2020-09-26 04:38:16
+You	2020-09-26 06:58:37
+Aa	2020-10-04 01:34:29
+Mid	2020-10-05 22:36:59
+
+# openemr-cmd -d openemr_openemr_1 e "mysql -u openemr -popenemr -e 'select date,url from openemr.documents;'"
+date	url
+2020-10-04 01:35:35	file:///var/www/localhost/htdocs/openemr/sites/default/documents/2/91ae3cfd-8bab-427e-9bd7-a32192207f3f
+2020-10-04 01:36:08	file:///var/www/localhost/htdocs/openemr/sites/default/documents/2/91ae3d2f-427d-4cac-b83d-ab46d135f8f2
+2020-10-04 01:43:53	file:///var/www/localhost/htdocs/openemr/sites/default/documents/4/91ae3ff4-7b51-4bc6-8b3c-311023134433
+2020-10-04 02:37:43	file:///var/www/localhost/htdocs/openemr/sites/default/documents/4/91ae5335-56cd-440b-9c5b-85d5cb03a523
+2020-10-04 02:42:40	file:///var/www/localhost/htdocs/openemr/sites/default/documents/4/91ae54fa-f8bc-4487-9270-56716baece99
+2020-10-05 22:39:00	file:///var/www/localhost/htdocs/openemr/sites/default/documents/5/91b203cd-d3df-4573-83be-6c2e2dcfeae0
+
+# curl -u admin:password http://xx.xx.122:5984/_users/_design/_auth/1.png --head|grep HTTP
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0 28031    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+HTTP/1.1 200 OK
