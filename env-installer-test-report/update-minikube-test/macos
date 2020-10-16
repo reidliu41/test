@@ -1,0 +1,87 @@
+$ ./openemr-env-installer /Users/reid/code reidliu41
+===> Homebrew is already installed.
+
+===> Git is already installed.
+
+===> OpenEMR repos are already downloaded.
+
+===> Docker is already installed.
+
+===> Docker Compose is installed as part of Docker for Mac.
+
+===> OpenEMR-cmd is already installed.
+
+===> Installing minikube...
+
+
+
+From a terminal with administrator access (but not logged in as root), run:
+     minikube start
+If minikube fails to start, see the drivers page(https://minikube.sigs.k8s.io/docs/drivers/)
+for help setting up a compatible container or virtual-machine manager.
+
+****************************Quick Check****************************
+git version 2.17.2 (Apple Git-113)
+Docker version 19.03.12, build 48a66213fe
+docker-compose version 1.26.2, build eefe0d31
+openemer-cmd 1.0.6
+minikube version: v1.14.0
+
+The docker status:
+Please check the docker icon on the top right of the desktop.
+********************************************************************
+
+*********************************************Startup Env*********************************************
+NOTE: Please log out and back in for using docker as a non-root user to take effect if ubuntu/debian.
+==>Run the below command to startup easy env.
+   cd /Users/reid/code/openemr && openemr-cmd up
+==>Or run the below command to startup insane env.
+   cd /Users/reid/code/openemr/contrib/util/docker && openemr-cmd up
+==>Or run the below command to startup OpenEMR Orchestration.
+   minikube start
+   cd /Users/reid/code/openemr-devops/kubernetes/minikube/ && bash kub-up
+*****************************************************************************************************
+
+
+
+$ ./openemr-env-installer /Users/reid/code reidliu41
+===> Homebrew is already installed.
+
+===> Git is already installed.
+
+===> OpenEMR repos are already downloaded.
+
+===> Docker is already installed.
+
+===> Docker Compose is installed as part of Docker for Mac.
+
+===> OpenEMR-cmd is already installed.
+
+===> Minikube is already installed.
+
+From a terminal with administrator access (but not logged in as root), run:
+     minikube start
+If minikube fails to start, see the drivers page(https://minikube.sigs.k8s.io/docs/drivers/)
+for help setting up a compatible container or virtual-machine manager.
+
+****************************Quick Check****************************
+git version 2.17.2 (Apple Git-113)
+Docker version 19.03.12, build 48a66213fe
+docker-compose version 1.26.2, build eefe0d31
+openemer-cmd 1.0.6
+minikube version: v1.14.0
+
+The docker status:
+Please check the docker icon on the top right of the desktop.
+********************************************************************
+
+*********************************************Startup Env*********************************************
+NOTE: Please log out and back in for using docker as a non-root user to take effect if ubuntu/debian.
+==>Run the below command to startup easy env.
+   cd /Users/reid/code/openemr && openemr-cmd up
+==>Or run the below command to startup insane env.
+   cd /Users/reid/code/openemr/contrib/util/docker && openemr-cmd up
+==>Or run the below command to startup OpenEMR Orchestration.
+   minikube start
+   cd /Users/reid/code/openemr-devops/kubernetes/minikube/ && bash kub-up
+*****************************************************************************************************
