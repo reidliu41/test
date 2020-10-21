@@ -1,0 +1,1470 @@
+$ minikube start --driver=docker
+😄  minikube v1.14.0 on Debian 10.6
+✨  Using the docker driver based on existing profile
+👍  Starting control plane node minikube in cluster minikube
+🏃  Updating the running docker "minikube" container ...
+🌐  Found network options:
+    ▪ HTTP_PROXY=http://xxxxxxxxxxxxxx
+❗  You appear to be using a proxy, but your NO_PROXY environment does not include the minikube IP (192.168.49.2).
+📘  Please see https://minikube.sigs.k8s.io/docs/handbook/vpn_and_proxy/ for more details
+🐳  Preparing Kubernetes v1.19.2 on Docker 19.03.8 ...
+    ▪ env HTTP_PROXY=http://xxxxxxxxx
+🔎  Verifying Kubernetes components...
+🌟  Enabled addons: storage-provisioner, default-storageclass
+🏄  Done! kubectl is now configured to use "minikube" by default
+
+
+$ kubectl get pods
+NAME                          READY   STATUS    RESTARTS   AGE
+mysql-64449b8cf7-nfvf4        1/1     Running   0          8m19s
+openemr-5f6db6c87c-gj92m      1/1     Running   0          8m18s
+openemr-5f6db6c87c-hl8cr      1/1     Running   0          8m18s
+openemr-5f6db6c87c-m4v4m      1/1     Running   0          8m18s
+openemr-5f6db6c87c-mr2mq      1/1     Running   0          8m18s
+openemr-5f6db6c87c-v4zsv      1/1     Running   0          8m18s
+phpmyadmin-78968d6cfb-szr5l   1/1     Running   0          8m18s
+redis-74cc9d667-45jb7         1/1     Running   0          8m18s
+
+$ kubectl get svc
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                         AGE
+kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP                         14m
+mysql        ClusterIP   10.110.91.178   <none>        3306/TCP                        9m26s
+openemr      NodePort    10.100.6.56     <none>        8080:30438/TCP,8090:32075/TCP   9m25s
+phpmyadmin   NodePort    10.110.159.3    <none>        8081:31372/TCP                  9m25s
+redis        ClusterIP   10.110.37.154   <none>        6379/TCP                        9m25s
+
+$ minikube service openemr --url
+http://192.168.49.2:30438
+http://192.168.49.2:32075
+
+======================================================================================
+
+d@debian:~$ ./openemr-env-installer
+Usage: bash openemr-env-installer <code location> <github account>
+
+  e.g. bash openemr-env-installer /home/test/code testuser
+    or bash openemr-env-installer /Users/test/code testuser
+
+NOTE1: Please make sure you have created your own fork of OpenEMR and OpenEMR-devops at first.
+NOTE2: Please make sure you have the necessary environment if use minikube:
+       * 2 CPUs or more
+       * 2GB of free memory
+       * 20GB of free disk space
+       * Internet connection
+       * Container or virtual machine manager,
+         such as: Docker, Hyperkit, Hyper-V, KVM, Parallels, Podman, VirtualBox, or VMWare
+reid@debian:~$
+reid@debian:~$
+reid@debian:~$ ./openemr-env-installer /home/reid/code reidliu41
+===> Installing git...
+
+Hit:1 http://security.debian.org/debian-security buster/updates InRelease
+Hit:2 http://deb.debian.org/debian buster InRelease
+Hit:3 http://deb.debian.org/debian buster-updates InRelease
+Reading package lists... Done
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following additional packages will be installed:
+  git-man liberror-perl patch
+Suggested packages:
+  git-daemon-run | git-daemon-sysvinit git-doc git-el git-email git-gui gitk gitweb git-cvs
+  git-mediawiki git-svn ed diffutils-doc
+The following NEW packages will be installed:
+  git git-man liberror-perl patch
+0 upgraded, 4 newly installed, 0 to remove and 0 not upgraded.
+Need to get 7,411 kB of archives.
+After this operation, 38.3 MB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian buster/main amd64 liberror-perl all 0.17027-2 [30.9 kB]
+Get:2 http://deb.debian.org/debian buster/main amd64 git-man all 1:2.20.1-2+deb10u3 [1,620 kB]
+Get:3 http://deb.debian.org/debian buster/main amd64 git amd64 1:2.20.1-2+deb10u3 [5,633 kB]
+Get:4 http://deb.debian.org/debian buster/main amd64 patch amd64 2.7.6-3+deb10u1 [126 kB]
+Fetched 7,411 kB in 8s (965 kB/s)
+Selecting previously unselected package liberror-perl.
+(Reading database ... 135355 files and directories currently installed.)
+Preparing to unpack .../liberror-perl_0.17027-2_all.deb ...
+Unpacking liberror-perl (0.17027-2) ...
+Selecting previously unselected package git-man.
+Preparing to unpack .../git-man_1%3a2.20.1-2+deb10u3_all.deb ...
+Unpacking git-man (1:2.20.1-2+deb10u3) ...
+Selecting previously unselected package git.
+Preparing to unpack .../git_1%3a2.20.1-2+deb10u3_amd64.deb ...
+Unpacking git (1:2.20.1-2+deb10u3) ...
+Selecting previously unselected package patch.
+Preparing to unpack .../patch_2.7.6-3+deb10u1_amd64.deb ...
+Unpacking patch (2.7.6-3+deb10u1) ...
+Setting up liberror-perl (0.17027-2) ...
+Setting up patch (2.7.6-3+deb10u1) ...
+Setting up git-man (1:2.20.1-2+deb10u3) ...
+Setting up git (1:2.20.1-2+deb10u3) ...
+Processing triggers for man-db (2.8.5-2) ...
+
+===> Downloading OpenEMR repository...
+
+Cloning into 'openemr'...
+remote: Enumerating objects: 1, done.
+remote: Counting objects: 100% (1/1), done.
+remote: Total 136619 (delta 0), reused 0 (delta 0), pack-reused 136618
+Receiving objects: 100% (136619/136619), 453.50 MiB | 1.63 MiB/s, done.
+Resolving deltas: 100% (87748/87748), done.
+Checking out files: 100% (4376/4376), done.
+remote: Enumerating objects: 258, done.
+remote: Counting objects: 100% (258/258), done.
+remote: Compressing objects: 100% (13/13), done.
+remote: Total 388 (delta 245), reused 249 (delta 244), pack-reused 130
+Receiving objects: 100% (388/388), 682.07 KiB | 1.16 MiB/s, done.
+Resolving deltas: 100% (273/273), completed with 178 local objects.
+From https://github.com/openemr/openemr
+ * [new branch]          covid19--cdc-pui-case-report-form -> upstream/covid19--cdc-pui-case-report-form
+ * [new branch]          dependabot/npm_and_yarn/fstream-1.0.12 -> upstream/dependabot/npm_and_yarn/fstream-1.0.12
+ * [new branch]          fax-module            -> upstream/fax-module
+ * [new branch]          feature/gh-2424       -> upstream/feature/gh-2424
+ * [new branch]          google-cloud-ci-try_1 -> upstream/google-cloud-ci-try_1
+ * [new branch]          master                -> upstream/master
+ * [new branch]          rel-320               -> upstream/rel-320
+ * [new branch]          rel-400               -> upstream/rel-400
+ * [new branch]          rel-410               -> upstream/rel-410
+ * [new branch]          rel-411               -> upstream/rel-411
+ * [new branch]          rel-412               -> upstream/rel-412
+ * [new branch]          rel-413               -> upstream/rel-413
+ * [new branch]          rel-420               -> upstream/rel-420
+ * [new branch]          rel-421               -> upstream/rel-421
+ * [new branch]          rel-422               -> upstream/rel-422
+ * [new branch]          rel-430               -> upstream/rel-430
+ * [new branch]          rel-500               -> upstream/rel-500
+ * [new branch]          rel-501               -> upstream/rel-501
+ * [new branch]          rel-502               -> upstream/rel-502
+ * [new tag]             v5_0_2_4              -> v5_0_2_4
+
+===> Pulling the latest data...
+
+From https://github.com/openemr/openemr
+ * branch                master     -> FETCH_HEAD
+Updating 3be1d6a28..0de3be107
+Fast-forward
+ .github/PULL_REQUEST_TEMPLATE.md                               |    4 -
+ .gitignore                                                     |    5 +-
+ .travis.yml                                                    |   92 +-
+ API_README.md                                                  |  149 +-
+ CONTRIBUTING.md                                                |  143 +-
+ Documentation/Readme_edihistory.html                           |    5 +-
+ .../help_files/add_edit_transactions_dashboard_help.php        |    2 +-
+ Documentation/help_files/adminacl_help.php                     |    2 +-
+ Documentation/help_files/cms_1500_help.php                     |    2 +-
+ Documentation/help_files/configure_orders_help.php             |    2 +-
+ Documentation/help_files/fee_sheet_help.php                    |    4 +-
+ Documentation/help_files/history_dashboard_help.php            |    2 +-
+ Documentation/help_files/issues_dashboard_help.php             |    2 +-
+ Documentation/help_files/ledger_dashboard_help.php             |   50 +-
+ Documentation/help_files/medical_dashboard_help.php            |    2 +-
+ Documentation/help_files/message_center_help.php               |    2 +-
+ Documentation/help_files/mfa_help.php                          |    2 +-
+ Documentation/help_files/openemr_installation_help.php         |    2 +-
+ Documentation/help_files/openemr_multisite_admin_help.php      |    2 +-
+ Documentation/help_files/procedure_provider_help.php           |    2 +-
+ Documentation/help_files/report_dashboard_help.php             |    2 +-
+ Documentation/help_files/sl_eob_help.php                       |    2 +-
+ Documentation/help_files/transactions_dashboard_help.php       |    2 +-
+ FHIR_README.md                                                 |  105 +-
+ _rest_config.php                                               |   44 +-
+ _rest_routes.inc.php                                           |  607 ++-
+ acl_upgrade.php                                                |    9 +-
+ admin.php                                                      |    4 -
+ apis/dispatch.php                                              |    2 +
+ build.xml                                                      |    6 -
+ ccr/display.php                                                |    3 +-
+ ci/apache_73_101/docker-compose.yml                            |   22 -
+ ci/apache_73_102/docker-compose.yml                            |    2 +-
+ ci/apache_73_103/docker-compose.yml                            |    2 +-
+ ci/apache_73_104/docker-compose.yml                            |    2 +-
+ ci/apache_73_105/docker-compose.yml                            |    2 +-
+ ci/apache_73_56/docker-compose.yml                             |   22 -
+ ci/apache_73_57/docker-compose.yml                             |    2 +-
+ ci/apache_73_8/docker-compose.yml                              |    2 +-
+ ci/nginx_72/docker-compose.yml                                 |   32 -
+ ci/nginx_72/php.ini                                            | 1918 --------
+ ci/nginx_73/docker-compose.yml                                 |    2 +-
+ ci/nginx_74/docker-compose.yml                                 |    2 +-
+ ci/nginx_80/docker-compose.yml                                 |    2 +-
+ composer.json                                                  |   27 +-
+ composer.lock                                                  | 2704 +++++------
+ config/config.yaml                                             |   26 +-
+ contrib/forms/handwritten-notes/hw-notes.php                   |   24 +-
+ contrib/forms/handwritten-notes/new.php                        |    2 +-
+ contrib/forms/prior_auth/C_FormPriorAuth.class.php             |   60 -
+ contrib/forms/prior_auth/FormPriorAuth.class.php               |  123 -
+ contrib/forms/prior_auth/info.txt                              |    1 -
+ contrib/forms/prior_auth/new.php                               |    9 -
+ contrib/forms/prior_auth/report.php                            |   32 -
+ contrib/forms/prior_auth/save.php                              |    9 -
+ contrib/forms/prior_auth/table.sql                             |    9 -
+ contrib/forms/prior_auth/templates/prior_auth/general_new.html |  125 -
+ contrib/forms/prior_auth/view.php                              |    9 -
+ contrib/forms/xmlformgen/xslt/new.php.xslt                     |    2 +-
+ contrib/forms/xmlformgen/xslt/print.php.xslt                   |    2 +-
+ contrib/forms/xmlformgen/xslt/show.php.xslt                    |    2 +-
+ contrib/forms/xmlformgen/xslt/view.php.xslt                    |    2 +-
+ contrib/icd10/2020-ICD-10-CM-Codes.zip                         |  Bin 2217062 -> 0 bytes
+ contrib/icd10/2020-ICD-10-PCS-Order.zip                        |  Bin 1262245 -> 0 bytes
+ contrib/icd10/Code-Descriptions.zip                            |  Bin 0 -> 2143829 bytes
+ ...021 ICD-10-PCS Order File (Long and Abbreviated Titles).zip |  Bin 0 -> 1301700 bytes
+ contrib/util/docker/README.md                                  |   27 +-
+ contrib/util/docker/couchdb-config-ssl-cert-keys/README.md     |   27 +
+ .../util/docker/couchdb-config-ssl-cert-keys/easy/ca-key.pem   |   27 +
+ contrib/util/docker/couchdb-config-ssl-cert-keys/easy/ca.pem   |   22 +
+ .../docker/couchdb-config-ssl-cert-keys/easy/client-cert.pem   |   20 +
+ .../docker/couchdb-config-ssl-cert-keys/easy/client-key.pem    |   27 +
+ .../docker/couchdb-config-ssl-cert-keys/easy/client-req.pem    |   17 +
+ .../docker/couchdb-config-ssl-cert-keys/easy/server-cert.pem   |   20 +
+ .../docker/couchdb-config-ssl-cert-keys/easy/server-key.pem    |   27 +
+ .../docker/couchdb-config-ssl-cert-keys/easy/server-req.pem    |   17 +
+ .../util/docker/couchdb-config-ssl-cert-keys/insane/ca-key.pem |   27 +
+ contrib/util/docker/couchdb-config-ssl-cert-keys/insane/ca.pem |   22 +
+ .../docker/couchdb-config-ssl-cert-keys/insane/client-cert.pem |   20 +
+ .../docker/couchdb-config-ssl-cert-keys/insane/client-key.pem  |   27 +
+ .../docker/couchdb-config-ssl-cert-keys/insane/client-req.pem  |   17 +
+ .../docker/couchdb-config-ssl-cert-keys/insane/server-cert.pem |   20 +
+ .../docker/couchdb-config-ssl-cert-keys/insane/server-key.pem  |   27 +
+ .../docker/couchdb-config-ssl-cert-keys/insane/server-req.pem  |   17 +
+ contrib/util/docker/couchdb-config-ssl-cert-keys/local.ini     |   96 +
+ contrib/util/docker/docker-compose.yml                         |   78 +-
+ contrib/util/docker/dockers/dev-php-fpm-8-0-redis/Dockerfile   |    4 +-
+ contrib/util/docker/ldap-ssl-certs-keys/README.md              |   27 +
+ contrib/util/docker/ldap-ssl-certs-keys/easy/Dockerfile        |    4 +
+ contrib/util/docker/ldap-ssl-certs-keys/easy/ca-key.pem        |   27 +
+ contrib/util/docker/ldap-ssl-certs-keys/easy/ca.pem            |   22 +
+ contrib/util/docker/ldap-ssl-certs-keys/easy/client-cert.pem   |   20 +
+ contrib/util/docker/ldap-ssl-certs-keys/easy/client-key.pem    |   27 +
+ contrib/util/docker/ldap-ssl-certs-keys/easy/client-req.pem    |   17 +
+ contrib/util/docker/ldap-ssl-certs-keys/easy/server-cert.pem   |   20 +
+ contrib/util/docker/ldap-ssl-certs-keys/easy/server-key.pem    |   27 +
+ contrib/util/docker/ldap-ssl-certs-keys/easy/server-req.pem    |   17 +
+ contrib/util/docker/ldap-ssl-certs-keys/insane/Dockerfile      |    4 +
+ contrib/util/docker/ldap-ssl-certs-keys/insane/ca-key.pem      |   27 +
+ contrib/util/docker/ldap-ssl-certs-keys/insane/ca.pem          |   22 +
+ contrib/util/docker/ldap-ssl-certs-keys/insane/client-cert.pem |   20 +
+ contrib/util/docker/ldap-ssl-certs-keys/insane/client-key.pem  |   27 +
+ contrib/util/docker/ldap-ssl-certs-keys/insane/client-req.pem  |   17 +
+ contrib/util/docker/ldap-ssl-certs-keys/insane/server-cert.pem |   20 +
+ contrib/util/docker/ldap-ssl-certs-keys/insane/server-key.pem  |   27 +
+ contrib/util/docker/ldap-ssl-certs-keys/insane/server-req.pem  |   17 +
+ contrib/util/docker/sql-ssl-certs-keys/README.md               |   25 +
+ contrib/util/docker/sql-ssl-certs-keys/easy/ca-key.pem         |   27 +
+ contrib/util/docker/sql-ssl-certs-keys/easy/ca.pem             |   21 +
+ contrib/util/docker/sql-ssl-certs-keys/easy/client-cert.pem    |   19 +
+ contrib/util/docker/sql-ssl-certs-keys/easy/client-key.pem     |   27 +
+ contrib/util/docker/sql-ssl-certs-keys/easy/client-req.pem     |   17 +
+ contrib/util/docker/sql-ssl-certs-keys/easy/server-cert.pem    |   19 +
+ contrib/util/docker/sql-ssl-certs-keys/easy/server-key.pem     |   27 +
+ contrib/util/docker/sql-ssl-certs-keys/easy/server-req.pem     |   16 +
+ contrib/util/docker/sql-ssl-certs-keys/insane/ca-key.pem       |   27 +
+ contrib/util/docker/sql-ssl-certs-keys/insane/ca.pem           |   21 +
+ contrib/util/docker/sql-ssl-certs-keys/insane/client-cert.pem  |   20 +
+ contrib/util/docker/sql-ssl-certs-keys/insane/client-key.pem   |   27 +
+ contrib/util/docker/sql-ssl-certs-keys/insane/client-req.pem   |   17 +
+ contrib/util/docker/sql-ssl-certs-keys/insane/server-cert.pem  |   19 +
+ contrib/util/docker/sql-ssl-certs-keys/insane/server-key.pem   |   27 +
+ contrib/util/docker/sql-ssl-certs-keys/insane/server-req.pem   |   17 +
+ contrib/util/express.php                                       |  276 --
+ contrib/util/installScripts/InstallerAuto.php                  |    2 +-
+ contrib/util/language_translations/buildLanguageDatabase.pl    |   76 +-
+ contrib/util/language_translations/currentLanguage_utf8.sql    |   16 +-
+ contrib/util/ubuntu_package_scripts/production/postinst        |    2 +
+ contrib/util/ubuntu_package_scripts/production/preinst         |    2 +
+ controllers/C_Document.class.php                               |  537 +--
+ custom/chart_tracker.php                                       |   21 +-
+ custom/code_types.inc.php                                      |    5 +-
+ custom/zutil.cli.doc_import.php                                |    2 +-
+ docker-compose.yml                                             |   39 +-
+ gacl/admin/templates/phpgacl/header.tpl                        |    2 +-
+ gulpfile.js                                                    |  201 +-
+ interface/README.md                                            |    4 -
+ interface/batchcom/batchcom.inc.php                            |    7 +-
+ interface/batchcom/batchcom.php                                |    4 +-
+ interface/batchcom/emailnotification.php                       |   63 +-
+ interface/batchcom/settingsnotification.php                    |    6 +-
+ interface/batchcom/smsnotification.php                         |   63 +-
+ interface/billing/billing_process.php                          |   32 +-
+ interface/billing/billing_report.php                           |  197 +-
+ interface/billing/edih_view.php                                |   92 +-
+ interface/billing/edit_payment.php                             |  603 +--
+ interface/billing/era_payments.php                             |  121 +-
+ interface/billing/indigent_patients_report.php                 |   10 +-
+ interface/billing/new_payment.php                              |  319 +-
+ interface/billing/payment_master.inc.php                       |   38 +-
+ interface/billing/payment_pat_sel.inc.php                      |  195 +-
+ interface/billing/print_daysheet_report_num1.php               | 3652 +++++++--------
+ interface/billing/search_payments.php                          |  695 ++-
+ interface/billing/sl_eob_invoice.php                           |  188 +-
+ interface/billing/sl_eob_patient_note.php                      |   13 +-
+ interface/billing/sl_eob_process.php                           |    7 +-
+ interface/billing/sl_eob_search.php                            |   81 +-
+ interface/billing/sl_receipts_report.php                       |    8 +-
+ interface/code_systems/dataloads_ajax.php                      |    2 +-
+ interface/drugs/add_edit_drug.php                              |   36 +-
+ interface/easipro/pro.php                                      |  448 +-
+ interface/forms/CAMOS/help.html                                |    2 +-
+ interface/forms/LBF/new.php                                    |  225 +-
+ interface/forms/LBF/printable.php                              |    4 +
+ interface/forms/bronchitis/table.sql                           |  148 +-
+ interface/forms/care_plan/new.php                              |  221 +-
+ interface/forms/clinical_instructions/new.php                  |   38 +-
+ interface/forms/dictation/new.php                              |   46 +-
+ interface/forms/dictation/view.php                             |    8 +-
+ interface/forms/eye_mag/a_issue.php                            |    1 -
+ interface/forms/eye_mag/php/eye_mag_functions.php              |    2 +-
+ interface/forms/eye_mag/php/taskman_functions.php              |    2 +-
+ interface/forms/eye_mag/view.php                               |    3 -
+ interface/forms/fee_sheet/new.php                              |  282 +-
+ interface/forms/fee_sheet/review/views/review.php              |    4 +-
+ interface/forms/functional_cognitive_status/new.php            |  193 +-
+ interface/forms/misc_billing_options/new.php                   |  294 +-
+ interface/forms/newGroupEncounter/common.php                   |   10 +-
+ interface/forms/newpatient/common.php                          |   61 +-
+ interface/forms/observation/new.php                            |  317 +-
+ interface/forms/prior_auth/C_FormPriorAuth.class.php           |    6 +-
+ interface/forms/prior_auth/FormPriorAuth.class.php             |   40 +-
+ interface/forms/prior_auth/info.txt                            |    3 +-
+ interface/forms/prior_auth/report.php                          |    4 +
+ interface/forms/prior_auth/save.php                            |    5 +-
+ interface/forms/prior_auth/table.sql                           |    4 +-
+ .../forms/prior_auth/templates/prior_auth/general_new.html     |  139 +-
+ interface/forms/procedure_order/new.php                        |  370 +-
+ interface/forms/reviewofs/new.php                              | 1384 +++---
+ interface/forms/reviewofs/view.php                             |   10 +-
+ interface/forms/ros/templates/ros/general_new.html             |  717 ++-
+ interface/forms/soap/templates/general_new.html                |   80 +-
+ interface/forms/track_anything/create.php                      |    2 +-
+ interface/forms/vitals/templates/vitals/general_new.html       |  396 +-
+ interface/forms_admin/forms_admin.php                          |    4 +-
+ interface/globals.php                                          |   20 +-
+ interface/language/lang_definition.php                         |   11 +-
+ interface/language/lang_manage.php                             |    8 +-
+ interface/language/language.inc.php                            |    9 +-
+ interface/language/language.php                                |    2 +-
+ interface/login/login.php                                      |   27 +-
+ interface/logview/logview.php                                  |   89 +-
+ interface/main/about_page.php                                  |    6 +-
+ interface/main/authorizations/authorizations_full.php          |    8 +-
+ interface/main/backup.php                                      |   16 +-
+ interface/main/backuplog.sh                                    |   14 +-
+ interface/main/calendar/config.php                             |   10 +-
+ interface/main/calendar/includes/pnAPI.php                     |   18 +-
+ interface/main/calendar/includes/pnHTML.php                    |    4 +-
+ interface/main/calendar/includes/pnMod.php                     |    2 +-
+ interface/main/calendar/modules/PostCalendar/common.api.php    |   18 +-
+ .../modules/PostCalendar/plugins/function.pc_date_select.php   |   18 +-
+ interface/main/calendar/modules/PostCalendar/pnadmin.php       |    4 +-
+ .../calendar/modules/PostCalendar/pnincludes/AnchorPosition.js |  188 +-
+ .../calendar/modules/PostCalendar/pnincludes/ColorPicker2.js   |  218 +-
+ .../calendar/modules/PostCalendar/pnincludes/PopupWindow.js    |  425 +-
+ .../calendar/modules/PostCalendar/pnincludes/overlib_mini.js   | 1836 +++++---
+ .../pntemplates/default/admin/submit_category.html             |  112 +-
+ .../PostCalendar/pntemplates/default/user/ajax_search.html     |    4 +-
+ .../pntemplates/default/views/day/ajax_template.html           |  115 +-
+ .../default/views/day_print/outlook_ajax_template.html         |    6 +-
+ .../modules/PostCalendar/pntemplates/default/views/footer.html |    3 -
+ .../modules/PostCalendar/pntemplates/default/views/header.html |    1 -
+ .../pntemplates/default/views/month/ajax_template.html         |  131 +-
+ .../PostCalendar/pntemplates/default/views/monthSelector.php   |   18 +-
+ .../default/views/month_print/outlook_ajax_template.html       |    4 +-
+ .../pntemplates/default/views/week/ajax_template.html          |  114 +-
+ .../default/views/week_print/outlook_ajax_template.html        |    4 +-
+ interface/main/calendar/modules/PostCalendar/pnuserapi.php     |    4 +-
+ interface/main/dated_reminders/dated_reminders_add.php         |    2 +-
+ interface/main/dated_reminders/dated_reminders_log.php         |    2 +-
+ interface/main/display_documents.php                           |  203 +-
+ interface/main/finder/dynamic_finder.php                       |   66 +-
+ interface/main/finder/multi_patients_finder_ajax.php           |    2 +-
+ interface/main/finder/patient_select.php                       |    6 +-
+ interface/main/main_screen.php                                 |   22 +-
+ interface/main/messages/messages.php                           |   10 +-
+ interface/main/onotes/office_comments.php                      |    8 +-
+ interface/main/onotes/office_comments_full.php                 |   25 +-
+ interface/main/pwd_expires_alert.php                           |    4 +-
+ interface/main/tabs/main.php                                   |    7 +-
+ interface/main/tabs/menu/menus/standard.json                   |   37 +-
+ interface/main/tabs/templates/patient_data_template.php        |    2 +-
+ interface/modules/zend_modules/config/autoload/global.php      |   17 +-
+ .../Application/src/Application/Model/ApplicationTable.php     |   54 +-
+ .../module/Application/src/Application/Plugin/CommonPlugin.php |  117 +-
+ .../Carecoordination/Controller/CarecoordinationController.php |  436 +-
+ .../Controller/EncounterccdadispatchController.php             |    8 +-
+ .../src/Carecoordination/Model/CarecoordinationTable.php       |  404 +-
+ .../src/Carecoordination/Model/EncounterccdadispatchTable.php  |  757 ++--
+ .../src/Carecoordination/Model/EncountermanagerTable.php       |   29 +-
+ .../Carecoordination/view/carecoordination/setup/index.phtml   |    3 +
+ .../module/Carecoordination/view/layout/mapper.phtml           |   52 +-
+ .../module/Carecoordination/view/layout/setup.phtml            |    8 +-
+ .../module/Documents/src/Documents/Plugin/Documents.php        |   50 +-
+ .../src/Immunization/Controller/ImmunizationController.php     |  496 ++-
+ .../Immunization/src/Immunization/Form/ImmunizationForm.php    |  129 +-
+ .../Immunization/src/Immunization/Model/ImmunizationTable.php  |  196 +-
+ .../module/Installer/src/Installer/Model/InstModuleTable.php   |   25 +-
+ .../Multipledb/src/Multipledb/Controller/BaseController.php    |    2 +-
+ .../src/Patientvalidation/Model/PatientData.php                |    4 +-
+ interface/new/new_comprehensive.php                            |   56 +-
+ interface/orders/find_order_popup.php                          |   58 +-
+ interface/orders/list_reports.php                              |  734 +--
+ interface/orders/load_compendium.php                           |  894 ++--
+ interface/orders/order_manifest.php                            |  304 +-
+ interface/orders/orders_results.php                            | 1033 +++--
+ interface/orders/procedure_provider_edit.php                   |   74 +-
+ interface/orders/procedure_provider_list.php                   |   86 +-
+ interface/orders/single_order_results.inc.php                  |  147 +-
+ interface/orders/single_order_results.php                      |   32 +-
+ interface/orders/types.php                                     |  219 +-
+ interface/orders/types_ajax.php                                |    4 +-
+ interface/orders/types_edit.php                                |   72 +-
+ interface/patient_file/ccr_import.php                          |   29 +-
+ interface/patient_file/ccr_pending_approval.php                |  123 +-
+ interface/patient_file/deleter.php                             |  537 +--
+ interface/patient_file/education.php                           |   44 +-
+ interface/patient_file/encounter/delete_form.php               |   69 +-
+ interface/patient_file/encounter/find_code_dynamic.php         |   60 +-
+ interface/patient_file/encounter/find_code_history.php         |   84 +-
+ interface/patient_file/encounter/find_code_popup.php           |  337 +-
+ interface/patient_file/encounter/forms.php                     |  121 +-
+ interface/patient_file/encounter/select_codes.php              |  191 +
+ interface/patient_file/front_payment.php                       |  394 +-
+ interface/patient_file/history/edit_billnote.php               |   90 +-
+ interface/patient_file/history/encounters.php                  | 1127 ++---
+ interface/patient_file/history/history.php                     |   12 +-
+ interface/patient_file/history/history_full.php                |   19 +-
+ interface/patient_file/history/history_save.php                |   10 +
+ interface/patient_file/pos_checkout.php                        |  421 +-
+ interface/patient_file/problem_encounter.php                   |  198 +-
+ interface/patient_file/reminder/patient_reminders.php          |    4 +-
+ interface/patient_file/report/custom_report.js                 |   10 +-
+ interface/patient_file/report/custom_report.php                | 1384 +++---
+ interface/patient_file/report/patient_report.php               | 1141 +++--
+ interface/patient_file/summary/add_edit_amendments.php         |  229 +-
+ interface/patient_file/summary/add_edit_issue.php              | 1212 ++---
+ interface/patient_file/summary/advancedirectives.php           |    6 +-
+ interface/patient_file/summary/dashboard_header.php            |    4 +-
+ .../patient_file/summary/dashboard_header_simple_return.php    |    4 +-
+ interface/patient_file/summary/demographics.php                |   32 +-
+ interface/patient_file/summary/demographics_full.php           |    8 +-
+ interface/patient_file/summary/disclosure_full.php             |  211 +-
+ interface/patient_file/summary/immunizations.php               |  988 ++---
+ interface/patient_file/summary/labdata.php                     |  759 ++--
+ interface/patient_file/summary/list_amendments.php             |  132 +-
+ interface/patient_file/summary/pnotes_full.php                 |  848 ++--
+ interface/patient_file/summary/pnotes_full_add.php             |  342 +-
+ interface/patient_file/summary/record_disclosure.php           |  156 +-
+ interface/patient_file/summary/stats_full.php                  |  418 +-
+ interface/patient_file/transaction/add_transaction.php         |   26 +-
+ interface/patient_file/transaction/record_request.php          |   17 +-
+ interface/patient_file/transaction/transactions.php            |  155 +-
+ interface/patient_tracker/patient_tracker.php                  |  307 +-
+ interface/patient_tracker/patient_tracker_status.php           |   12 +-
+ .../product_registration/product_registration_controller.php   |    5 +-
+ interface/reports/amc_tracking.php                             |   10 +-
+ interface/reports/appointments_report.php                      |    2 +-
+ interface/reports/audit_log_tamper_report.php                  |  112 +-
+ interface/reports/cdr_log.php                                  |    6 +-
+ interface/reports/clinical_reports.php                         |  108 +-
+ interface/reports/collections_report.php                       |    6 +-
+ interface/reports/cqm.php                                      |   18 +-
+ interface/reports/criteria.tab.php                             |  290 +-
+ interface/reports/encounters_report.php                        |    2 +-
+ interface/reports/external_data.php                            |  180 +-
+ interface/reports/immunization_report.php                      |  329 +-
+ interface/reports/pat_ledger.php                               |  413 +-
+ interface/reports/patient_edu_web_lookup.php                   |    4 +-
+ interface/reports/patient_list.php                             |   19 +-
+ interface/reports/patient_list_creation.php                    |   38 +-
+ interface/reports/prescriptions_report.php                     |   10 +-
+ interface/reports/receipts_by_method_report.php                |   27 +-
+ interface/reports/referrals_report.php                         |    4 +-
+ interface/reports/report_results.php                           |   14 +-
+ interface/reports/svc_code_financial_report.php                |    5 +-
+ interface/super/edit_globals.php                               |   39 +-
+ interface/super/edit_layout.php                                |  569 +--
+ interface/super/edit_list.php                                  |    4 +-
+ interface/super/rules/base/template/basic.php                  |    6 +-
+ interface/super/rules/www/css/jQuery.autocomplete.css          |   46 -
+ interface/super/rules/www/css/rules.css                        |  159 -
+ interface/themes/ajax_calendar_sass.scss                       |  593 +--
+ interface/themes/color_base.scss                               |   81 +-
+ interface/themes/colors/utilities/batch-payments.scss          |    1 -
+ interface/themes/colors/utilities/bootstrap-nav-menu.scss      |   45 +-
+ interface/themes/colors/utilities/bootstrap.scss               |   40 +-
+ interface/themes/colors/utilities/default_variables.scss       |   19 +-
+ interface/themes/colors/utilities/edit_globals_colors.scss     |   48 +-
+ interface/themes/colors/utilities/recall-flow-board.scss       |    2 +-
+ interface/themes/colors/utilities/tabs-full.scss               |   87 +-
+ interface/themes/compact-theme-defaults.scss                   |   33 +
+ interface/themes/core.scss                                     |    3 -
+ interface/themes/core/FontAwesome.scss                         |    8 +
+ interface/themes/core/addressbook.scss                         |    2 +-
+ interface/themes/core/closeDlgIframe.scss                      |   24 +-
+ interface/themes/core/documents.scss                           |    4 +-
+ interface/themes/core/edit_globals.scss                        |   71 +-
+ interface/themes/core/forms.scss                               |   22 +-
+ interface/themes/core/links.scss                               |    8 +-
+ interface/themes/core/list-table.scss                          |   32 +-
+ interface/themes/core/navmenu.scss                             |  171 +-
+ interface/themes/core/oe-mobile.scss                           |   28 +-
+ interface/themes/core/patient/demographics.scss                |   38 +-
+ interface/themes/core/patient/history.scss                     |   38 +-
+ interface/themes/core/patient/notes.scss                       |   52 +-
+ interface/themes/core/patient/past_encounters.scss             |  108 +-
+ interface/themes/core/patient/report_custom.scss               |   88 +-
+ interface/themes/core/patient/reports.scss                     |   38 +-
+ interface/themes/core/patient/stats.scss                       |   30 +-
+ interface/themes/core/patient/stats_summary.scss               |   30 +-
+ interface/themes/core/reports.scss                             |   52 +-
+ interface/themes/core/sddm.scss                                |   68 +-
+ interface/themes/core/tabs.scss                                |   88 +-
+ interface/themes/core/text.scss                                |   15 +-
+ interface/themes/core/therapy-groups.scss                      |    8 +-
+ interface/themes/login_page.scss                               |   86 +-
+ .../themes/misc/bootstrap_navbar.scss                          |   90 +-
+ .../themes/misc/edi_history_v2.scss                            |  170 +-
+ interface/themes/misc/encounters.scss                          |   83 +
+ interface/themes/{ => misc}/labdata.scss                       |    0
+ interface/themes/misc/rules.scss                               |  173 +
+ interface/themes/navigation-slide/_color.scss                  |    2 +-
+ interface/themes/navigation-slide/_future-bootstrap.scss       |    4 +-
+ interface/themes/oe-bootstrap.scss                             |   96 +-
+ interface/themes/oe-common/acl-common.scss                     |    4 +-
+ interface/themes/oe-common/oe-sidebar.scss                     |    8 +-
+ interface/themes/oe-common/procedures-common.scss              |    4 +-
+ interface/themes/oe-styles/style_manila.scss                   |   65 +-
+ .../oe-styles/{style_superhero.scss => style_solar.scss}       |  140 +-
+ interface/themes/patientportal-style.scss                      |   58 +-
+ interface/themes/rtl_style_pdf.css                             |    8 -
+ interface/themes/style.scss                                    |    6 +-
+ interface/themes/tabs_style_full.scss                          |    6 +-
+ interface/themes/theme-defaults.scss                           |   48 +-
+ interface/themes/themeBuilder.php                              |   39 -
+ interface/usergroup/addrbook_edit.php                          |   86 +-
+ interface/usergroup/addrbook_list.php                          |   24 +-
+ interface/usergroup/adminacl.php                               |    8 +-
+ interface/usergroup/facilities.php                             |    8 +-
+ interface/usergroup/facility_user_admin.php                    |    2 +-
+ interface/usergroup/mfa_registrations.php                      |    6 +-
+ interface/usergroup/mfa_totp.php                               |   10 +-
+ interface/usergroup/mfa_u2f.php                                |    6 +-
+ interface/usergroup/ssl_certificates_admin.php                 |  237 +-
+ interface/usergroup/user_admin.php                             |   10 +-
+ interface/usergroup/user_info.php                              |    2 -
+ interface/usergroup/usergroup_admin.php                        |   13 +-
+ interface/usergroup/usergroup_admin_add.php                    |    8 +-
+ library/ESign/DbRow/Signable.php                               |    2 +-
+ library/ESign/Utils/Verification.php                           |   18 +-
+ library/FeeSheet.class.php                                     |   70 +-
+ library/FeeSheetHtml.class.php                                 |   20 +-
+ library/MedEx/API.php                                          |  387 +-
+ library/ajax/adminacl_ajax.php                                 |    7 +-
+ library/ajax/ccr_import_ajax.php                               |    3 +-
+ library/ajax/prescription_drugname_lookup.php                  |    4 +-
+ library/ajax/sql_server_status.php                             |   56 +
+ library/ajax/upload.php                                        |   53 +-
+ library/amc.php                                                |    1 +
+ library/auth.inc                                               |   12 +-
+ library/classes/CategoryTree.class.php                         |    4 +-
+ library/classes/ClinicalTypes/ClinicalType.php                 |   18 +-
+ library/classes/Controller.class.php                           |    6 +-
+ library/classes/CouchDB.class.php                              |  140 +-
+ library/classes/Document.class.php                             |  235 +-
+ library/classes/Installer.class.php                            |   91 +-
+ library/classes/Prescription.class.php                         |   10 +-
+ library/classes/Tree.class.php                                 |    2 +-
+ .../rulesets/Cqm/reports/NQF_0002/InitialPatientPopulation.php |   10 +-
+ library/classes/thumbnail/ThumbnailGenerator.php               |    4 +-
+ library/clinical_rules.php                                     |   26 +-
+ library/create_ssl_certificate.php                             |   62 +-
+ library/css/encounters.css                                     |   74 -
+ library/custom_template/add_custombutton.php                   |   93 +-
+ library/custom_template/custom_template.php                    |  296 +-
+ library/custom_template/personalize.php                        |  318 +-
+ library/daysheet.inc.php                                       |    4 +-
+ library/deletedrug.php                                         |   48 +-
+ library/dialog.js                                              |   57 +-
+ library/dicom_frame.php                                        |  517 ++-
+ library/forms.inc                                              |    3 +-
+ library/globals.inc.php                                        |  170 +-
+ library/js/calendarDirectSelect.js                             |   89 +-
+ library/js/dwv/dicom_gui.js                                    |  368 +-
+ library/js/dwv/dicom_launcher.js                               |  300 +-
+ library/js/dwv/gui/browser.js                                  |  215 +
+ library/js/dwv/gui/colourMap.js                                |   87 +
+ library/js/dwv/gui/custom.js                                   |   64 +
+ library/js/dwv/gui/dropboxLoader.js                            |  125 +
+ library/js/dwv/gui/filter.js                                   |  246 +
+ library/js/dwv/gui/generic.js                                  |  374 ++
+ library/js/dwv/gui/help.js                                     |  105 +
+ library/js/dwv/gui/html.js                                     |  575 +++
+ library/js/dwv/gui/infoController.js                           |  156 +
+ library/js/dwv/gui/infoOverlay.js                              |  304 ++
+ library/js/dwv/gui/loader.js                                   |  247 ++
+ library/js/dwv/gui/plot.js                                     |   70 +
+ library/js/dwv/gui/resources/help/click.png                    |  Bin 0 -> 1557 bytes
+ library/js/dwv/gui/resources/help/double_click.png             |  Bin 0 -> 1474 bytes
+ library/js/dwv/gui/resources/help/mouse_drag.png               |  Bin 0 -> 1534 bytes
+ library/js/dwv/gui/resources/help/mouse_wheel.png              |  Bin 0 -> 1303 bytes
+ library/js/dwv/gui/tools.js                                    |  564 +++
+ library/js/dwv/gui/undo.js                                     |  110 +
+ library/js/utility.js                                          |   34 +-
+ library/js/xl/jquery-datetimepicker-2-5-4.js.php               |    4 +-
+ library/log_validation.php                                     |   68 -
+ library/openssl.cnf                                            |  313 --
+ library/options.inc.php                                        |  275 +-
+ library/options.js.php                                         |    1 -
+ library/patient.inc                                            |   16 +-
+ library/patient_tracker.inc.php                                |    2 +-
+ library/payment.inc.php                                        |   34 +-
+ library/payment_jav.inc.php                                    |  154 +-
+ library/pid.inc                                                |    2 +-
+ library/registry.inc                                           |    7 +-
+ library/report_database.inc                                    |    2 +-
+ library/sql.inc                                                |   39 +-
+ library/sql_upgrade_fx.php                                     |  707 +--
+ library/standard_tables_capture.inc                            |   32 +-
+ library/validation/LBF_Validation.php                          |    6 +-
+ library/validation/validation_script.js.php                    |    2 +-
+ package-lock.json                                              | 6154 ++++++++------------------
+ package.json                                                   |   65 +-
+ portal/account/account.lib.php                                 |   92 +-
+ portal/account/account.php                                     |   23 +-
+ portal/account/register.php                                    |   61 +-
+ portal/get_patient_documents.php                               |   10 +-
+ portal/get_patient_info.php                                    |    3 +-
+ portal/home.php                                                |    8 +-
+ portal/import_template_ui.php                                  |   50 +-
+ portal/lib/appsql.class.php                                    |   30 +-
+ portal/lib/download_template.php                               |   93 +-
+ portal/lib/template_menu.php                                   |    2 +-
+ portal/messaging/handle_note.php                               |   31 +-
+ portal/messaging/messages.php                                  |    4 +-
+ portal/patient/_machine_config.php                             |    6 +-
+ portal/patient/fwk/libs/verysimple/DB/DataDriver/MySQLi.php    |    6 +-
+ portal/patient/fwk/libs/verysimple/Phreeze/Criteria.php        |   76 +-
+ .../patient/libs/Controller/OnsiteActivityViewController.php   |    2 +-
+ portal/patient/libs/Controller/PatientController.php           |   59 +-
+ portal/patient/libs/Controller/PortalPatientController.php     |    8 +-
+ portal/patient/libs/Model/DAO/OnsiteActivityViewMap-query.php  |    2 +-
+ portal/patient/libs/Model/DAO/OnsiteActivityViewMap.php        |    2 +-
+ portal/patient/libs/Model/DAO/PatientMap.php                   |    2 +-
+ portal/patient/libs/Model/DAO/UserCriteriaDAO.php              |   16 +-
+ portal/patient/libs/Model/DAO/UserDAO.php                      |  172 +-
+ portal/patient/libs/Model/DAO/UserMap.php                      |    1 +
+ .../patient/libs/Reporter/OnsiteActivityViewReporter-query.php |    2 +-
+ portal/patient/libs/Reporter/OnsiteActivityViewReporter.php    |    2 +-
+ portal/patient/libs/Reporter/PatientReporter.php               |    2 +-
+ portal/patient/libs/Reporter/UserReporter.php                  |    3 +-
+ portal/patient/scripts/app.js                                  |   40 +-
+ portal/patient/scripts/app/onsitedocuments.js                  |  582 ++-
+ portal/patient/scripts/app/patientdata.js                      | 1017 ++---
+ portal/patient/scripts/model.js                                |    4 +-
+ portal/patient/scripts/view.js                                 |    5 +-
+ portal/patient/templates/OnsiteDocumentListView.tpl.php        |   71 +-
+ portal/portal_payment.php                                      |   28 +-
+ portal/report/pat_ledger.php                                   |    4 +-
+ portal/report/portal_custom_report.php                         |   14 +-
+ portal/report/portal_patient_report.php                        |    6 +-
+ portal/sign/assets/signer_api.js                               |  151 +-
+ portal/sign/assets/signer_modal.php                            |   19 +-
+ portal/sign/css/signer_modal.css                               |    7 +-
+ portal/sign/lib/save-signature.php                             |    2 +-
+ setup.php                                                      |  688 +--
+ sites/default/documents/certificates/README.md                 |   28 +-
+ sites/default/documents/custom_menus/Custom.json               |   37 +-
+ .../onsite_portal_documents/templates/Medical_History.tpl      |    3 +
+ sites/default/sqlconf.php                                      |    3 +-
+ sql/5_0_2-to-6_0_0_upgrade.sql                                 |  459 +-
+ sql/database.sql                                               |  310 +-
+ sql_patch.php                                                  |   36 +-
+ sql_upgrade.php                                                |  301 +-
+ src/Billing/BillingReport.php                                  |   23 +-
+ src/Billing/BillingUtilities.php                               |   16 +-
+ src/Billing/Claim.php                                          |   11 +-
+ src/Billing/EDI270.php                                         |    1 +
+ src/Billing/InvoiceSummary.php                                 |    8 +-
+ src/Common/Acl/AclExtended.php                                 |    8 +-
+ src/Common/Auth/AuthHash.php                                   |   82 +-
+ src/Common/Auth/AuthUtils.php                                  |   62 +-
+ src/Common/Compatibility/Checker.php                           |    2 +-
+ src/Common/Database/Auditor.php                                |   89 -
+ src/Common/Database/Connector.php                              |  170 -
+ src/Common/Http/HttpResponseHelper.php                         |    4 -
+ src/Common/Http/oeHttp.php                                     |   11 +-
+ src/Common/Logging/EventAuditLogger.php                        |  422 +-
+ src/Common/Logging/Logger.php                                  |  201 -
+ src/Common/ORDataObject/ORDataObject.php                       |    2 +-
+ src/Common/Session/SessionUtil.php                             |  112 +-
+ src/Common/Uuid/UuidMapping.php                                |   41 +
+ src/Common/Uuid/UuidRegistry.php                               |   59 +-
+ src/Core/Header.php                                            |   16 +-
+ src/Core/ModulesApplication.php                                |   23 +-
+ src/Entities/ChartTracker.php                                  |  169 -
+ src/Entities/ONote.php                                         |  163 -
+ src/Entities/ProductRegistration.php                           |  171 -
+ src/Entities/User.php                                          |  992 -----
+ src/Entities/Version.php                                       |  245 -
+ src/Events/Facility/FacilityCreatedEvent.php                   |   51 +
+ src/Events/Facility/FacilityUpdatedEvent.php                   |   70 +
+ src/Events/User/UserCreatedEvent.php                           |   51 +
+ src/Events/User/UserUpdatedEvent.php                           |   70 +
+ src/Gacl/Gacl.php                                              |   58 +-
+ src/Menu/MainMenuRole.php                                      |    2 +-
+ src/Menu/PatientMenuRole.php                                   |    2 +-
+ src/Repositories/ChartTrackerRepository.php                    |   44 -
+ src/Repositories/ONoteRepository.php                           |  152 -
+ src/Repositories/ProductRegistrationRepository.php             |   58 -
+ src/Repositories/UserRepository.php                            |   68 -
+ src/Repositories/VersionRepository.php                         |  108 -
+ src/RestControllers/AllergyIntoleranceRestController.php       |   81 +
+ src/RestControllers/AuthRestController.php                     |    5 +
+ src/RestControllers/ConditionRestController.php                |   81 +
+ src/RestControllers/DrugRestController.php                     |   50 +
+ .../FHIR/FhirAllergyIntoleranceRestController.php              |   97 +-
+ src/RestControllers/FHIR/FhirCareTeamRestController.php        |   62 +
+ src/RestControllers/FHIR/FhirConditionRestController.php       |   95 +-
+ src/RestControllers/FHIR/FhirImmunizationRestController.php    |  108 +-
+ src/RestControllers/FHIR/FhirLocationRestController.php        |   62 +
+ .../FHIR/FhirMedicationRequestRestController.php               |   64 +
+ src/RestControllers/FHIR/FhirMedicationRestController.php      |   90 +-
+ .../FHIR/FhirMedicationStatementRestController.php             |   79 -
+ src/RestControllers/FHIR/FhirObservationRestController.php     |  133 +-
+ src/RestControllers/FHIR/FhirProcedureRestController.php       |   95 +-
+ src/RestControllers/ImmunizationRestController.php             |   56 +
+ src/RestControllers/InsuranceCompanyRestController.php         |   10 +-
+ src/RestControllers/PrescriptionRestController.php             |   50 +
+ src/RestControllers/ProcedureRestController.php                |   51 +
+ src/RestControllers/ProductRegistrationRestController.php      |    3 +-
+ src/RestControllers/VersionRestController.php                  |    2 +-
+ src/Services/AllergyIntoleranceService.php                     |  298 ++
+ src/Services/BaseService.php                                   |   43 +
+ src/Services/CareTeamService.php                               |  106 +
+ src/Services/ChartTrackerService.php                           |   57 -
+ src/Services/ConditionService.php                              |  283 ++
+ src/Services/DocumentService.php                               |    4 +-
+ src/Services/DrugService.php                                   |  147 +
+ src/Services/EncounterService.php                              |   13 +-
+ src/Services/FHIR/FhirAllergyIntoleranceService.php            |  348 +-
+ src/Services/FHIR/FhirCareTeamService.php                      |  128 +
+ src/Services/FHIR/FhirConditionService.php                     |  313 +-
+ src/Services/FHIR/FhirEncounterService.php                     |    1 +
+ src/Services/FHIR/FhirImmunizationService.php                  |  368 +-
+ src/Services/FHIR/FhirLocationService.php                      |  152 +
+ src/Services/FHIR/FhirMedicationRequestService.php             |  226 +
+ src/Services/FHIR/FhirMedicationService.php                    |  218 +-
+ src/Services/FHIR/FhirMedicationStatementService.php           |  195 -
+ src/Services/FHIR/FhirObservationService.php                   |  455 +-
+ src/Services/FHIR/FhirPatientService.php                       |    1 +
+ src/Services/FHIR/FhirProcedureService.php                     |  328 +-
+ src/Services/FacilityService.php                               |   23 +-
+ src/Services/ImmunizationService.php                           |  233 +
+ src/Services/InsuranceCompanyService.php                       |    9 +-
+ src/Services/LocationService.php                               |  185 +
+ src/Services/ONoteService.php                                  |   76 +-
+ src/Services/ObservationLabService.php                         |  126 +
+ src/Services/PatientService.php                                |    5 +
+ src/Services/PractitionerRoleService.php                       |    6 +-
+ src/Services/PractitionerService.php                           |    6 +-
+ src/Services/PrescriptionService.php                           |  157 +
+ src/Services/ProcedureService.php                              |  206 +
+ src/Services/ProductRegistrationService.php                    |   60 +-
+ src/Services/UserService.php                                   |   39 +-
+ src/Services/VersionService.php                                |   67 +-
+ src/Validators/AllergyIntoleranceValidator.php                 |   65 +
+ src/Validators/ConditionValidator.php                          |   62 +
+ src/Validators/ImmunizationValidator.php                       |   25 +
+ templates/documents/general_list.html                          |   44 +-
+ templates/documents/general_queue.html                         |   59 -
+ templates/documents/general_upload.html                        |  120 +-
+ templates/documents/general_view.html                          |    6 +-
+ templates/practice_settings/general_list.html                  |    4 +-
+ templates/prescription/general_edit.html                       |  379 +-
+ templates/prescription/general_list.html                       |  338 +-
+ templates/prescription/general_lookup.html                     |    5 +-
+ tests/Tests/Unit/Entity/ChartTrackerTest.php                   |   98 -
+ tests/eventdispatcher/PatientFilterEventHookTest/Module.php    |    8 +-
+ version.php                                                    |    4 +-
+ 642 files changed, 40767 insertions(+), 39187 deletions(-)
+ delete mode 100644 ci/apache_73_101/docker-compose.yml
+ delete mode 100644 ci/apache_73_56/docker-compose.yml
+ delete mode 100644 ci/nginx_72/docker-compose.yml
+ delete mode 100644 ci/nginx_72/php.ini
+ delete mode 100644 contrib/forms/prior_auth/C_FormPriorAuth.class.php
+ delete mode 100644 contrib/forms/prior_auth/FormPriorAuth.class.php
+ delete mode 100644 contrib/forms/prior_auth/info.txt
+ delete mode 100644 contrib/forms/prior_auth/new.php
+ delete mode 100644 contrib/forms/prior_auth/report.php
+ delete mode 100644 contrib/forms/prior_auth/save.php
+ delete mode 100644 contrib/forms/prior_auth/table.sql
+ delete mode 100644 contrib/forms/prior_auth/templates/prior_auth/general_new.html
+ delete mode 100644 contrib/forms/prior_auth/view.php
+ delete mode 100644 contrib/icd10/2020-ICD-10-CM-Codes.zip
+ delete mode 100644 contrib/icd10/2020-ICD-10-PCS-Order.zip
+ create mode 100644 contrib/icd10/Code-Descriptions.zip
+ create mode 100644 contrib/icd10/Zip File 5 2021 ICD-10-PCS Order File (Long and Abbreviated Titles).zip
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/README.md
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/easy/ca-key.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/easy/ca.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/easy/client-cert.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/easy/client-key.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/easy/client-req.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/easy/server-cert.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/easy/server-key.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/easy/server-req.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/insane/ca-key.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/insane/ca.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/insane/client-cert.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/insane/client-key.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/insane/client-req.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/insane/server-cert.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/insane/server-key.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/insane/server-req.pem
+ create mode 100644 contrib/util/docker/couchdb-config-ssl-cert-keys/local.ini
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/README.md
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/easy/Dockerfile
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/easy/ca-key.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/easy/ca.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/easy/client-cert.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/easy/client-key.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/easy/client-req.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/easy/server-cert.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/easy/server-key.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/easy/server-req.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/insane/Dockerfile
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/insane/ca-key.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/insane/ca.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/insane/client-cert.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/insane/client-key.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/insane/client-req.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/insane/server-cert.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/insane/server-key.pem
+ create mode 100644 contrib/util/docker/ldap-ssl-certs-keys/insane/server-req.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/README.md
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/easy/ca-key.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/easy/ca.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/easy/client-cert.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/easy/client-key.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/easy/client-req.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/easy/server-cert.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/easy/server-key.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/easy/server-req.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/insane/ca-key.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/insane/ca.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/insane/client-cert.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/insane/client-key.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/insane/client-req.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/insane/server-cert.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/insane/server-key.pem
+ create mode 100644 contrib/util/docker/sql-ssl-certs-keys/insane/server-req.pem
+ delete mode 100755 contrib/util/express.php
+ create mode 100644 interface/patient_file/encounter/select_codes.php
+ delete mode 100644 interface/super/rules/www/css/jQuery.autocomplete.css
+ delete mode 100644 interface/super/rules/www/css/rules.css
+ create mode 100644 interface/themes/compact-theme-defaults.scss
+ rename library/css/bootstrap_navbar.css => interface/themes/misc/bootstrap_navbar.scss (51%)
+ rename library/css/edi_history_v2.css => interface/themes/misc/edi_history_v2.scss (90%)
+ create mode 100644 interface/themes/misc/encounters.scss
+ rename interface/themes/{ => misc}/labdata.scss (100%)
+ create mode 100644 interface/themes/misc/rules.scss
+ rename interface/themes/oe-styles/{style_superhero.scss => style_solar.scss} (61%)
+ delete mode 100644 interface/themes/themeBuilder.php
+ create mode 100644 library/ajax/sql_server_status.php
+ delete mode 100644 library/css/encounters.css
+ create mode 100644 library/js/dwv/gui/browser.js
+ create mode 100644 library/js/dwv/gui/colourMap.js
+ create mode 100644 library/js/dwv/gui/custom.js
+ create mode 100644 library/js/dwv/gui/dropboxLoader.js
+ create mode 100644 library/js/dwv/gui/filter.js
+ create mode 100644 library/js/dwv/gui/generic.js
+ create mode 100644 library/js/dwv/gui/help.js
+ create mode 100644 library/js/dwv/gui/html.js
+ create mode 100644 library/js/dwv/gui/infoController.js
+ create mode 100644 library/js/dwv/gui/infoOverlay.js
+ create mode 100644 library/js/dwv/gui/loader.js
+ create mode 100644 library/js/dwv/gui/plot.js
+ create mode 100644 library/js/dwv/gui/resources/help/click.png
+ create mode 100644 library/js/dwv/gui/resources/help/double_click.png
+ create mode 100644 library/js/dwv/gui/resources/help/mouse_drag.png
+ create mode 100644 library/js/dwv/gui/resources/help/mouse_wheel.png
+ create mode 100644 library/js/dwv/gui/tools.js
+ create mode 100644 library/js/dwv/gui/undo.js
+ delete mode 100644 library/log_validation.php
+ delete mode 100644 library/openssl.cnf
+ create mode 100644 sites/default/documents/onsite_portal_documents/templates/Medical_History.tpl
+ delete mode 100644 src/Common/Database/Auditor.php
+ delete mode 100644 src/Common/Database/Connector.php
+ delete mode 100644 src/Common/Logging/Logger.php
+ create mode 100644 src/Common/Uuid/UuidMapping.php
+ delete mode 100644 src/Entities/ChartTracker.php
+ delete mode 100644 src/Entities/ONote.php
+ delete mode 100644 src/Entities/ProductRegistration.php
+ delete mode 100644 src/Entities/User.php
+ delete mode 100644 src/Entities/Version.php
+ create mode 100644 src/Events/Facility/FacilityCreatedEvent.php
+ create mode 100644 src/Events/Facility/FacilityUpdatedEvent.php
+ create mode 100644 src/Events/User/UserCreatedEvent.php
+ create mode 100644 src/Events/User/UserUpdatedEvent.php
+ delete mode 100644 src/Repositories/ChartTrackerRepository.php
+ delete mode 100644 src/Repositories/ONoteRepository.php
+ delete mode 100644 src/Repositories/ProductRegistrationRepository.php
+ delete mode 100644 src/Repositories/UserRepository.php
+ delete mode 100644 src/Repositories/VersionRepository.php
+ create mode 100644 src/RestControllers/AllergyIntoleranceRestController.php
+ create mode 100644 src/RestControllers/ConditionRestController.php
+ create mode 100644 src/RestControllers/DrugRestController.php
+ create mode 100644 src/RestControllers/FHIR/FhirCareTeamRestController.php
+ create mode 100644 src/RestControllers/FHIR/FhirLocationRestController.php
+ create mode 100644 src/RestControllers/FHIR/FhirMedicationRequestRestController.php
+ delete mode 100644 src/RestControllers/FHIR/FhirMedicationStatementRestController.php
+ create mode 100644 src/RestControllers/ImmunizationRestController.php
+ create mode 100644 src/RestControllers/PrescriptionRestController.php
+ create mode 100644 src/RestControllers/ProcedureRestController.php
+ create mode 100644 src/Services/AllergyIntoleranceService.php
+ create mode 100644 src/Services/CareTeamService.php
+ delete mode 100644 src/Services/ChartTrackerService.php
+ create mode 100644 src/Services/ConditionService.php
+ create mode 100644 src/Services/DrugService.php
+ create mode 100644 src/Services/FHIR/FhirCareTeamService.php
+ create mode 100644 src/Services/FHIR/FhirLocationService.php
+ create mode 100644 src/Services/FHIR/FhirMedicationRequestService.php
+ delete mode 100644 src/Services/FHIR/FhirMedicationStatementService.php
+ create mode 100644 src/Services/ImmunizationService.php
+ create mode 100644 src/Services/LocationService.php
+ create mode 100644 src/Services/ObservationLabService.php
+ create mode 100644 src/Services/PrescriptionService.php
+ create mode 100644 src/Services/ProcedureService.php
+ create mode 100644 src/Validators/AllergyIntoleranceValidator.php
+ create mode 100644 src/Validators/ConditionValidator.php
+ create mode 100644 src/Validators/ImmunizationValidator.php
+ delete mode 100644 templates/documents/general_queue.html
+ delete mode 100644 tests/Tests/Unit/Entity/ChartTrackerTest.php
+
+===> Downloading OpenEMR-devops repository...
+
+Cloning into 'openemr-devops'...
+remote: Enumerating objects: 169, done.
+remote: Counting objects: 100% (169/169), done.
+remote: Compressing objects: 100% (125/125), done.
+remote: Total 3455 (delta 86), reused 114 (delta 44), pack-reused 3286
+Receiving objects: 100% (3455/3455), 8.19 MiB | 2.01 MiB/s, done.
+Resolving deltas: 100% (2190/2190), done.
+From https://github.com/openemr/openemr-devops
+ * [new branch]      certbot-fix      -> upstream/certbot-fix
+ * [new branch]      feature/gh-194   -> upstream/feature/gh-194
+ * [new branch]      launchpad        -> upstream/launchpad
+ * [new branch]      master           -> upstream/master
+ * [new branch]      wip-501-standard -> upstream/wip-501-standard
+
+===> Pulling the latest data...
+
+From https://github.com/openemr/openemr-devops
+ * branch            master     -> FETCH_HEAD
+Updating 19ed880..5f65f8c
+Fast-forward
+ .gitattributes                                                 |   2 +
+ .travis.yml                                                    |  19 +-
+ README.md                                                      |   7 +
+ docker/mysql-xtrabackup/Dockerfile                             |   2 +-
+ docker/openemr/6.0.0/Dockerfile                                |  11 +-
+ docker/openemr/6.0.0/README.md                                 |   6 +-
+ docker/openemr/6.0.0/auto_configure.php                        |   3 +-
+ docker/openemr/6.0.0/autoconfig.sh                             | 129 ++---
+ docker/openemr/6.0.0/utilities/devtoolsLibrary.source          | 108 ++++-
+ docker/openemr/flex-3.12/Dockerfile                            |  15 +-
+ docker/openemr/flex-3.12/README.md                             |   6 +-
+ docker/openemr/flex-3.12/auto_configure.php                    |   2 +-
+ docker/openemr/flex-3.12/autoconfig.sh                         | 309 ++++++------
+ docker/openemr/flex-3.12/openemr.conf                          |   6 +
+ docker/openemr/flex-3.12/utilities/demo_5_0_0_5.sql            |  10 +
+ docker/openemr/flex-3.12/utilities/devtools                    | 191 +++++++-
+ docker/openemr/flex-3.12/utilities/devtoolsLibrary.source      |  83 +++-
+ docker/openemr/flex-edge/Dockerfile                            |  17 +-
+ docker/openemr/flex-edge/README.md                             |   6 +-
+ docker/openemr/flex-edge/auto_configure.php                    |   2 +-
+ docker/openemr/flex-edge/autoconfig.sh                         | 309 ++++++------
+ docker/openemr/flex-edge/openemr.conf                          |   6 +
+ docker/openemr/flex-edge/utilities/demo_5_0_0_5.sql            |  10 +
+ docker/openemr/flex-edge/utilities/devtools                    | 191 +++++++-
+ docker/openemr/flex-edge/utilities/devtoolsLibrary.source      |  83 +++-
+ kubernetes/README.md                                           |   3 +
+ kubernetes/minikube/README.md                                  | 106 +++++
+ kubernetes/minikube/docker-compose.yml                         |  53 +++
+ kubernetes/minikube/kub-down                                   |  12 +
+ kubernetes/minikube/kub-up                                     |  13 +
+ .../minikube/letsencryptvolume-persistentvolumeclaim.yaml      |  14 +
+ kubernetes/minikube/mysql-deployment.yaml                      |  40 ++
+ kubernetes/minikube/mysql-service.yaml                         |   9 +
+ kubernetes/minikube/openemr-deployment.yaml                    |  71 +++
+ kubernetes/minikube/openemr-service.yaml                       |  23 +
+ kubernetes/minikube/phpmyadmin-deployment.yaml                 |  39 ++
+ kubernetes/minikube/phpmyadmin-service.yaml                    |  20 +
+ kubernetes/minikube/redis-deployment.yaml                      |  34 ++
+ kubernetes/minikube/redis-service.yaml                         |   9 +
+ kubernetes/minikube/sslvolume-persistentvolumeclaim.yaml       |  14 +
+ kubernetes/minikube/websitevolume-persistentvolumeclaim.yaml   |  14 +
+ packages/full_stack/assets/eb/00-check-umount-nfs.config       |  13 +
+ utilities/openemr-cmd/README.md                                |  30 ++
+ utilities/openemr-cmd/openemr-cmd                              | 542 +++++++++++++++++++++
+ utilities/openemr-env-installer/README.md                      |  31 ++
+ utilities/openemr-env-installer/openemr-env-installer          | 457 ++++++++++++++++++
+ utilities/openemr-env-migrator/README.md                       |  45 ++
+ utilities/openemr-env-migrator/openemr-env-migrator            | 234 +++++++++
+ utilities/openemr-monitor/README.md                            |  31 ++
+ utilities/openemr-monitor/alertmanager.yml                     |  24 +
+ utilities/openemr-monitor/docker-compose.yml                   |  65 +++
+ .../grafana/provisioning/dashboards/dashboard-193.json         | 686 +++++++++++++++++++++++++++
+ .../grafana/provisioning/dashboards/dashboard.yml              |  11 +
+ .../grafana/provisioning/datasources/datasource.yml            |  11 +
+ utilities/openemr-monitor/monitor-installer                    |  85 ++++
+ utilities/openemr-monitor/prometheus/alert-rules.yml           |  13 +
+ utilities/openemr-monitor/prometheus/prometheus.yml            |  24 +
+ utilities/portainer/README.md                                  |  22 +
+ 58 files changed, 3948 insertions(+), 383 deletions(-)
+ create mode 100644 .gitattributes
+ create mode 100644 kubernetes/README.md
+ create mode 100644 kubernetes/minikube/README.md
+ create mode 100644 kubernetes/minikube/docker-compose.yml
+ create mode 100644 kubernetes/minikube/kub-down
+ create mode 100644 kubernetes/minikube/kub-up
+ create mode 100644 kubernetes/minikube/letsencryptvolume-persistentvolumeclaim.yaml
+ create mode 100644 kubernetes/minikube/mysql-deployment.yaml
+ create mode 100644 kubernetes/minikube/mysql-service.yaml
+ create mode 100644 kubernetes/minikube/openemr-deployment.yaml
+ create mode 100644 kubernetes/minikube/openemr-service.yaml
+ create mode 100644 kubernetes/minikube/phpmyadmin-deployment.yaml
+ create mode 100644 kubernetes/minikube/phpmyadmin-service.yaml
+ create mode 100644 kubernetes/minikube/redis-deployment.yaml
+ create mode 100644 kubernetes/minikube/redis-service.yaml
+ create mode 100644 kubernetes/minikube/sslvolume-persistentvolumeclaim.yaml
+ create mode 100644 kubernetes/minikube/websitevolume-persistentvolumeclaim.yaml
+ create mode 100644 packages/full_stack/assets/eb/00-check-umount-nfs.config
+ create mode 100644 utilities/openemr-cmd/README.md
+ create mode 100755 utilities/openemr-cmd/openemr-cmd
+ create mode 100644 utilities/openemr-env-installer/README.md
+ create mode 100644 utilities/openemr-env-installer/openemr-env-installer
+ create mode 100644 utilities/openemr-env-migrator/README.md
+ create mode 100755 utilities/openemr-env-migrator/openemr-env-migrator
+ create mode 100644 utilities/openemr-monitor/README.md
+ create mode 100644 utilities/openemr-monitor/alertmanager.yml
+ create mode 100644 utilities/openemr-monitor/docker-compose.yml
+ create mode 100644 utilities/openemr-monitor/grafana/provisioning/dashboards/dashboard-193.json
+ create mode 100644 utilities/openemr-monitor/grafana/provisioning/dashboards/dashboard.yml
+ create mode 100644 utilities/openemr-monitor/grafana/provisioning/datasources/datasource.yml
+ create mode 100644 utilities/openemr-monitor/monitor-installer
+ create mode 100644 utilities/openemr-monitor/prometheus/alert-rules.yml
+ create mode 100644 utilities/openemr-monitor/prometheus/prometheus.yml
+ create mode 100644 utilities/portainer/README.md
+
+===> Update the apt package index and install packages to allow apt to use a repository over HTTPS...
+
+Hit:1 http://security.debian.org/debian-security buster/updates InRelease
+Hit:2 http://deb.debian.org/debian buster InRelease
+Hit:3 http://deb.debian.org/debian buster-updates InRelease
+Reading package lists... Done
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+software-properties-common is already the newest version (0.96.20.2-2).
+software-properties-common set to manually installed.
+ca-certificates is already the newest version (20200601~deb10u1).
+ca-certificates set to manually installed.
+The following NEW packages will be installed:
+  apt-transport-https curl gnupg-agent
+0 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+Need to get 806 kB of archives.
+After this operation, 971 kB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian buster/main amd64 apt-transport-https all 1.8.2.1 [149 kB]
+Get:2 http://deb.debian.org/debian buster/main amd64 curl amd64 7.64.0-4+deb10u1 [264 kB]
+Get:3 http://deb.debian.org/debian buster/main amd64 gnupg-agent all 2.2.12-1+deb10u1 [393 kB]
+Fetched 806 kB in 0s (1,785 kB/s)
+Selecting previously unselected package apt-transport-https.
+(Reading database ... 136307 files and directories currently installed.)
+Preparing to unpack .../apt-transport-https_1.8.2.1_all.deb ...
+Unpacking apt-transport-https (1.8.2.1) ...
+Selecting previously unselected package curl.
+Preparing to unpack .../curl_7.64.0-4+deb10u1_amd64.deb ...
+Unpacking curl (7.64.0-4+deb10u1) ...
+Selecting previously unselected package gnupg-agent.
+Preparing to unpack .../gnupg-agent_2.2.12-1+deb10u1_all.deb ...
+Unpacking gnupg-agent (2.2.12-1+deb10u1) ...
+Setting up apt-transport-https (1.8.2.1) ...
+Setting up gnupg-agent (2.2.12-1+deb10u1) ...
+Setting up curl (7.64.0-4+deb10u1) ...
+Processing triggers for man-db (2.8.5-2) ...
+
+===> Adding the Docker official GPG key...
+OK
+
+===> Setting up the stable repository...
+
+===> Installing docker engine...
+
+Hit:1 http://deb.debian.org/debian buster InRelease
+Hit:2 http://security.debian.org/debian-security buster/updates InRelease
+Hit:3 http://deb.debian.org/debian buster-updates InRelease
+Get:4 https://download.docker.com/linux/debian buster InRelease [44.4 kB]
+Get:5 https://download.docker.com/linux/debian buster/stable amd64 Packages [13.3 kB]
+Fetched 57.8 kB in 1s (54.0 kB/s)
+Reading package lists... Done
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following additional packages will be installed:
+  aufs-dkms aufs-tools binutils binutils-common binutils-x86-64-linux-gnu build-essential
+  cgroupfs-mount dkms dpkg-dev fakeroot g++ g++-8 gcc gcc-8 libalgorithm-diff-perl
+  libalgorithm-diff-xs-perl libalgorithm-merge-perl libasan5 libbinutils libc-dev-bin libc6-dev
+  libcc1-0 libdpkg-perl libfakeroot libfile-fcntllock-perl libgcc-8-dev libitm1 liblsan0 libmpx2
+  libstdc++-8-dev libtsan0 libubsan1 linux-compiler-gcc-8-x86 linux-headers-4.19.0-12-amd64
+  linux-headers-4.19.0-12-common linux-headers-amd64 linux-kbuild-4.19 linux-libc-dev make
+  manpages-dev pigz
+Suggested packages:
+  aufs-dev binutils-doc python3-apport menu debian-keyring g++-multilib g++-8-multilib gcc-8-doc
+  libstdc++6-8-dbg gcc-multilib autoconf automake libtool flex bison gdb gcc-doc gcc-8-multilib
+  gcc-8-locales libgcc1-dbg libgomp1-dbg libitm1-dbg libatomic1-dbg libasan5-dbg liblsan0-dbg
+  libtsan0-dbg libubsan1-dbg libmpx2-dbg libquadmath0-dbg glibc-doc bzr libstdc++-8-doc make-doc
+The following NEW packages will be installed:
+  aufs-dkms aufs-tools binutils binutils-common binutils-x86-64-linux-gnu build-essential
+  cgroupfs-mount containerd.io dkms docker-ce docker-ce-cli dpkg-dev fakeroot g++ g++-8 gcc
+  gcc-8 libalgorithm-diff-perl libalgorithm-diff-xs-perl libalgorithm-merge-perl libasan5
+  libbinutils libc-dev-bin libc6-dev libcc1-0 libdpkg-perl libfakeroot libfile-fcntllock-perl
+  libgcc-8-dev libitm1 liblsan0 libmpx2 libstdc++-8-dev libtsan0 libubsan1
+  linux-compiler-gcc-8-x86 linux-headers-4.19.0-12-amd64 linux-headers-4.19.0-12-common
+  linux-headers-amd64 linux-kbuild-4.19 linux-libc-dev make manpages-dev pigz
+0 upgraded, 44 newly installed, 0 to remove and 0 not upgraded.
+Need to get 141 MB of archives.
+After this operation, 625 MB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian buster/main amd64 pigz amd64 2.4-1 [57.8 kB]
+Get:2 http://security.debian.org/debian-security buster/updates/main amd64 linux-libc-dev amd64 4.19.152-1 [1,402 kB]
+Get:3 http://deb.debian.org/debian buster/main amd64 libcc1-0 amd64 8.3.0-6 [46.6 kB]
+Get:4 http://deb.debian.org/debian buster/main amd64 binutils-common amd64 2.31.1-16 [2,073 kB]
+Get:5 https://download.docker.com/linux/debian buster/stable amd64 containerd.io amd64 1.3.7-1 [24.4 MB]
+Get:6 http://deb.debian.org/debian buster/main amd64 libbinutils amd64 2.31.1-16 [478 kB]
+Get:7 http://security.debian.org/debian-security buster/updates/main amd64 linux-compiler-gcc-8-x86 amd64 4.19.152-1 [484 kB]
+Get:8 https://download.docker.com/linux/debian buster/stable amd64 docker-ce-cli amd64 5:19.03.13~3-0~debian-buster [44.2 MB]
+Get:9 http://deb.debian.org/debian buster/main amd64 binutils-x86-64-linux-gnu amd64 2.31.1-16 [1,823 kB]
+Get:10 http://security.debian.org/debian-security buster/updates/main amd64 linux-headers-4.19.0-12-common all 4.19.152-1 [8,426 kB]
+Get:11 https://download.docker.com/linux/debian buster/stable amd64 docker-ce amd64 5:19.03.13~3-0~debian-buster [22.5 MB]
+Get:12 http://deb.debian.org/debian buster/main amd64 binutils amd64 2.31.1-16 [56.8 kB]
+Get:13 http://deb.debian.org/debian buster/main amd64 libitm1 amd64 8.3.0-6 [27.7 kB]
+Get:14 http://deb.debian.org/debian buster/main amd64 libasan5 amd64 8.3.0-6 [362 kB]
+Get:15 http://deb.debian.org/debian buster/main amd64 liblsan0 amd64 8.3.0-6 [131 kB]
+Get:16 http://deb.debian.org/debian buster/main amd64 libtsan0 amd64 8.3.0-6 [283 kB]
+Get:17 http://deb.debian.org/debian buster/main amd64 libubsan1 amd64 8.3.0-6 [120 kB]
+Get:18 http://deb.debian.org/debian buster/main amd64 libmpx2 amd64 8.3.0-6 [11.4 kB]
+Get:19 http://deb.debian.org/debian buster/main amd64 libgcc-8-dev amd64 8.3.0-6 [2,298 kB]
+Get:20 http://deb.debian.org/debian buster/main amd64 gcc-8 amd64 8.3.0-6 [9,452 kB]
+Get:21 http://security.debian.org/debian-security buster/updates/main amd64 linux-kbuild-4.19 amd64 4.19.152-1 [717 kB]
+Get:22 http://security.debian.org/debian-security buster/updates/main amd64 linux-headers-4.19.0-12-amd64 amd64 4.19.152-1 [967 kB]
+Get:23 http://deb.debian.org/debian buster/main amd64 gcc amd64 4:8.3.0-1 [5,196 B]
+Get:24 http://deb.debian.org/debian buster/main amd64 libdpkg-perl all 1.19.7 [1,414 kB]
+Get:25 http://security.debian.org/debian-security buster/updates/main amd64 linux-headers-amd64 amd64 4.19+105+deb10u7 [6,816 B]
+Get:26 http://deb.debian.org/debian buster/main amd64 make amd64 4.2.1-1.2 [341 kB]
+Get:27 http://deb.debian.org/debian buster/main amd64 dpkg-dev all 1.19.7 [1,773 kB]
+Get:28 http://deb.debian.org/debian buster/main amd64 libc-dev-bin amd64 2.28-10 [275 kB]
+Get:29 http://deb.debian.org/debian buster/main amd64 libc6-dev amd64 2.28-10 [2,691 kB]
+Get:30 http://deb.debian.org/debian buster/main amd64 libstdc++-8-dev amd64 8.3.0-6 [1,532 kB]
+Get:31 http://deb.debian.org/debian buster/main amd64 g++-8 amd64 8.3.0-6 [9,752 kB]
+Get:32 http://deb.debian.org/debian buster/main amd64 g++ amd64 4:8.3.0-1 [1,644 B]
+Get:33 http://deb.debian.org/debian buster/main amd64 build-essential amd64 12.6 [7,576 B]
+Get:34 http://deb.debian.org/debian buster/main amd64 dkms all 2.6.1-4 [74.4 kB]
+Get:35 http://deb.debian.org/debian buster/main amd64 aufs-dkms all 4.19+20190211-1 [183 kB]
+Get:36 http://deb.debian.org/debian buster/main amd64 aufs-tools amd64 1:4.14+20190211-1 [105 kB]
+Get:37 http://deb.debian.org/debian buster/main amd64 cgroupfs-mount all 1.4 [6,276 B]
+Get:38 http://deb.debian.org/debian buster/main amd64 libfakeroot amd64 1.23-1 [45.9 kB]
+Get:39 http://deb.debian.org/debian buster/main amd64 fakeroot amd64 1.23-1 [85.8 kB]
+Get:40 http://deb.debian.org/debian buster/main amd64 libalgorithm-diff-perl all 1.19.03-2 [47.9 kB]
+Get:41 http://deb.debian.org/debian buster/main amd64 libalgorithm-diff-xs-perl amd64 0.04-5+b1 [11.8 kB]
+Get:42 http://deb.debian.org/debian buster/main amd64 libalgorithm-merge-perl all 0.08-3 [12.7 kB]
+Get:43 http://deb.debian.org/debian buster/main amd64 libfile-fcntllock-perl amd64 0.22-3+b5 [35.4 kB]
+Get:44 http://deb.debian.org/debian buster/main amd64 manpages-dev all 4.16-2 [2,232 kB]
+Fetched 141 MB in 29s (4,868 kB/s)
+Extracting templates from packages: 100%
+Selecting previously unselected package pigz.
+(Reading database ... 136324 files and directories currently installed.)
+Preparing to unpack .../00-pigz_2.4-1_amd64.deb ...
+Unpacking pigz (2.4-1) ...
+Selecting previously unselected package libcc1-0:amd64.
+Preparing to unpack .../01-libcc1-0_8.3.0-6_amd64.deb ...
+Unpacking libcc1-0:amd64 (8.3.0-6) ...
+Selecting previously unselected package binutils-common:amd64.
+Preparing to unpack .../02-binutils-common_2.31.1-16_amd64.deb ...
+Unpacking binutils-common:amd64 (2.31.1-16) ...
+Selecting previously unselected package libbinutils:amd64.
+Preparing to unpack .../03-libbinutils_2.31.1-16_amd64.deb ...
+Unpacking libbinutils:amd64 (2.31.1-16) ...
+Selecting previously unselected package binutils-x86-64-linux-gnu.
+Preparing to unpack .../04-binutils-x86-64-linux-gnu_2.31.1-16_amd64.deb ...
+Unpacking binutils-x86-64-linux-gnu (2.31.1-16) ...
+Selecting previously unselected package binutils.
+Preparing to unpack .../05-binutils_2.31.1-16_amd64.deb ...
+Unpacking binutils (2.31.1-16) ...
+Selecting previously unselected package libitm1:amd64.
+Preparing to unpack .../06-libitm1_8.3.0-6_amd64.deb ...
+Unpacking libitm1:amd64 (8.3.0-6) ...
+Selecting previously unselected package libasan5:amd64.
+Preparing to unpack .../07-libasan5_8.3.0-6_amd64.deb ...
+Unpacking libasan5:amd64 (8.3.0-6) ...
+Selecting previously unselected package liblsan0:amd64.
+Preparing to unpack .../08-liblsan0_8.3.0-6_amd64.deb ...
+Unpacking liblsan0:amd64 (8.3.0-6) ...
+Selecting previously unselected package libtsan0:amd64.
+Preparing to unpack .../09-libtsan0_8.3.0-6_amd64.deb ...
+Unpacking libtsan0:amd64 (8.3.0-6) ...
+Selecting previously unselected package libubsan1:amd64.
+Preparing to unpack .../10-libubsan1_8.3.0-6_amd64.deb ...
+Unpacking libubsan1:amd64 (8.3.0-6) ...
+Selecting previously unselected package libmpx2:amd64.
+Preparing to unpack .../11-libmpx2_8.3.0-6_amd64.deb ...
+Unpacking libmpx2:amd64 (8.3.0-6) ...
+Selecting previously unselected package libgcc-8-dev:amd64.
+Preparing to unpack .../12-libgcc-8-dev_8.3.0-6_amd64.deb ...
+Unpacking libgcc-8-dev:amd64 (8.3.0-6) ...
+Selecting previously unselected package gcc-8.
+Preparing to unpack .../13-gcc-8_8.3.0-6_amd64.deb ...
+Unpacking gcc-8 (8.3.0-6) ...
+Selecting previously unselected package gcc.
+Preparing to unpack .../14-gcc_4%3a8.3.0-1_amd64.deb ...
+Unpacking gcc (4:8.3.0-1) ...
+Selecting previously unselected package libdpkg-perl.
+Preparing to unpack .../15-libdpkg-perl_1.19.7_all.deb ...
+Unpacking libdpkg-perl (1.19.7) ...
+Selecting previously unselected package make.
+Preparing to unpack .../16-make_4.2.1-1.2_amd64.deb ...
+Unpacking make (4.2.1-1.2) ...
+Selecting previously unselected package dpkg-dev.
+Preparing to unpack .../17-dpkg-dev_1.19.7_all.deb ...
+Unpacking dpkg-dev (1.19.7) ...
+Selecting previously unselected package libc-dev-bin.
+Preparing to unpack .../18-libc-dev-bin_2.28-10_amd64.deb ...
+Unpacking libc-dev-bin (2.28-10) ...
+Selecting previously unselected package linux-libc-dev:amd64.
+Preparing to unpack .../19-linux-libc-dev_4.19.152-1_amd64.deb ...
+Unpacking linux-libc-dev:amd64 (4.19.152-1) ...
+Selecting previously unselected package libc6-dev:amd64.
+Preparing to unpack .../20-libc6-dev_2.28-10_amd64.deb ...
+Unpacking libc6-dev:amd64 (2.28-10) ...
+Selecting previously unselected package libstdc++-8-dev:amd64.
+Preparing to unpack .../21-libstdc++-8-dev_8.3.0-6_amd64.deb ...
+Unpacking libstdc++-8-dev:amd64 (8.3.0-6) ...
+Selecting previously unselected package g++-8.
+Preparing to unpack .../22-g++-8_8.3.0-6_amd64.deb ...
+Unpacking g++-8 (8.3.0-6) ...
+Selecting previously unselected package g++.
+Preparing to unpack .../23-g++_4%3a8.3.0-1_amd64.deb ...
+Unpacking g++ (4:8.3.0-1) ...
+Selecting previously unselected package build-essential.
+Preparing to unpack .../24-build-essential_12.6_amd64.deb ...
+Unpacking build-essential (12.6) ...
+Selecting previously unselected package dkms.
+Preparing to unpack .../25-dkms_2.6.1-4_all.deb ...
+Unpacking dkms (2.6.1-4) ...
+Selecting previously unselected package aufs-dkms.
+Preparing to unpack .../26-aufs-dkms_4.19+20190211-1_all.deb ...
+Unpacking aufs-dkms (4.19+20190211-1) ...
+Selecting previously unselected package aufs-tools.
+Preparing to unpack .../27-aufs-tools_1%3a4.14+20190211-1_amd64.deb ...
+Unpacking aufs-tools (1:4.14+20190211-1) ...
+Selecting previously unselected package cgroupfs-mount.
+Preparing to unpack .../28-cgroupfs-mount_1.4_all.deb ...
+Unpacking cgroupfs-mount (1.4) ...
+Selecting previously unselected package containerd.io.
+Preparing to unpack .../29-containerd.io_1.3.7-1_amd64.deb ...
+Unpacking containerd.io (1.3.7-1) ...
+Selecting previously unselected package docker-ce-cli.
+Preparing to unpack .../30-docker-ce-cli_5%3a19.03.13~3-0~debian-buster_amd64.deb ...
+Unpacking docker-ce-cli (5:19.03.13~3-0~debian-buster) ...
+Selecting previously unselected package docker-ce.
+Preparing to unpack .../31-docker-ce_5%3a19.03.13~3-0~debian-buster_amd64.deb ...
+Unpacking docker-ce (5:19.03.13~3-0~debian-buster) ...
+Selecting previously unselected package libfakeroot:amd64.
+Preparing to unpack .../32-libfakeroot_1.23-1_amd64.deb ...
+Unpacking libfakeroot:amd64 (1.23-1) ...
+Selecting previously unselected package fakeroot.
+Preparing to unpack .../33-fakeroot_1.23-1_amd64.deb ...
+Unpacking fakeroot (1.23-1) ...
+Selecting previously unselected package libalgorithm-diff-perl.
+Preparing to unpack .../34-libalgorithm-diff-perl_1.19.03-2_all.deb ...
+Unpacking libalgorithm-diff-perl (1.19.03-2) ...
+Selecting previously unselected package libalgorithm-diff-xs-perl.
+Preparing to unpack .../35-libalgorithm-diff-xs-perl_0.04-5+b1_amd64.deb ...
+Unpacking libalgorithm-diff-xs-perl (0.04-5+b1) ...
+Selecting previously unselected package libalgorithm-merge-perl.
+Preparing to unpack .../36-libalgorithm-merge-perl_0.08-3_all.deb ...
+Unpacking libalgorithm-merge-perl (0.08-3) ...
+Selecting previously unselected package libfile-fcntllock-perl.
+Preparing to unpack .../37-libfile-fcntllock-perl_0.22-3+b5_amd64.deb ...
+Unpacking libfile-fcntllock-perl (0.22-3+b5) ...
+Selecting previously unselected package linux-compiler-gcc-8-x86.
+Preparing to unpack .../38-linux-compiler-gcc-8-x86_4.19.152-1_amd64.deb ...
+Unpacking linux-compiler-gcc-8-x86 (4.19.152-1) ...
+Selecting previously unselected package linux-headers-4.19.0-12-common.
+Preparing to unpack .../39-linux-headers-4.19.0-12-common_4.19.152-1_all.deb ...
+Unpacking linux-headers-4.19.0-12-common (4.19.152-1) ...
+Selecting previously unselected package linux-kbuild-4.19.
+Preparing to unpack .../40-linux-kbuild-4.19_4.19.152-1_amd64.deb ...
+Unpacking linux-kbuild-4.19 (4.19.152-1) ...
+Selecting previously unselected package linux-headers-4.19.0-12-amd64.
+Preparing to unpack .../41-linux-headers-4.19.0-12-amd64_4.19.152-1_amd64.deb ...
+Unpacking linux-headers-4.19.0-12-amd64 (4.19.152-1) ...
+Selecting previously unselected package linux-headers-amd64.
+Preparing to unpack .../42-linux-headers-amd64_4.19+105+deb10u7_amd64.deb ...
+Unpacking linux-headers-amd64 (4.19+105+deb10u7) ...
+Selecting previously unselected package manpages-dev.
+Preparing to unpack .../43-manpages-dev_4.16-2_all.deb ...
+Unpacking manpages-dev (4.16-2) ...
+Setting up aufs-tools (1:4.14+20190211-1) ...
+Setting up manpages-dev (4.16-2) ...
+Setting up linux-kbuild-4.19 (4.19.152-1) ...
+Setting up linux-headers-4.19.0-12-common (4.19.152-1) ...
+Setting up libfile-fcntllock-perl (0.22-3+b5) ...
+Setting up libalgorithm-diff-perl (1.19.03-2) ...
+Setting up binutils-common:amd64 (2.31.1-16) ...
+Setting up linux-libc-dev:amd64 (4.19.152-1) ...
+Setting up libfakeroot:amd64 (1.23-1) ...
+Setting up fakeroot (1.23-1) ...
+update-alternatives: using /usr/bin/fakeroot-sysv to provide /usr/bin/fakeroot (fakeroot) in auto mode
+Setting up libasan5:amd64 (8.3.0-6) ...
+Setting up make (4.2.1-1.2) ...
+Setting up containerd.io (1.3.7-1) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/containerd.service → /lib/systemd/system/containerd.service.
+Setting up libdpkg-perl (1.19.7) ...
+Setting up libmpx2:amd64 (8.3.0-6) ...
+Setting up libubsan1:amd64 (8.3.0-6) ...
+Setting up docker-ce-cli (5:19.03.13~3-0~debian-buster) ...
+Setting up pigz (2.4-1) ...
+Setting up cgroupfs-mount (1.4) ...
+Setting up libbinutils:amd64 (2.31.1-16) ...
+Setting up libc-dev-bin (2.28-10) ...
+Setting up libalgorithm-diff-xs-perl (0.04-5+b1) ...
+Setting up libcc1-0:amd64 (8.3.0-6) ...
+Setting up liblsan0:amd64 (8.3.0-6) ...
+Setting up libitm1:amd64 (8.3.0-6) ...
+Setting up libalgorithm-merge-perl (0.08-3) ...
+Setting up binutils-x86-64-linux-gnu (2.31.1-16) ...
+Setting up libtsan0:amd64 (8.3.0-6) ...
+Setting up binutils (2.31.1-16) ...
+Setting up dpkg-dev (1.19.7) ...
+Setting up docker-ce (5:19.03.13~3-0~debian-buster) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/docker.service → /lib/systemd/system/docker.service.
+Created symlink /etc/systemd/system/sockets.target.wants/docker.socket → /lib/systemd/system/docker.socket.
+Setting up libgcc-8-dev:amd64 (8.3.0-6) ...
+Setting up libc6-dev:amd64 (2.28-10) ...
+Setting up libstdc++-8-dev:amd64 (8.3.0-6) ...
+Setting up gcc-8 (8.3.0-6) ...
+Setting up gcc (4:8.3.0-1) ...
+Setting up dkms (2.6.1-4) ...
+Setting up g++-8 (8.3.0-6) ...
+Setting up aufs-dkms (4.19+20190211-1) ...
+Loading new aufs-4.19+20190211 DKMS files...
+Building for 4.19.0-12-amd64
+Building initial module for 4.19.0-12-amd64
+Done.
+
+aufs.ko:
+Running module version sanity check.
+ - Original module
+   - No original module exists within this kernel
+ - Installation
+   - Installing to /lib/modules/4.19.0-12-amd64/updates/dkms/
+
+depmod.....
+
+DKMS: install completed.
+Setting up linux-compiler-gcc-8-x86 (4.19.152-1) ...
+Setting up linux-headers-4.19.0-12-amd64 (4.19.152-1) ...
+Setting up g++ (4:8.3.0-1) ...
+update-alternatives: using /usr/bin/g++ to provide /usr/bin/c++ (c++) in auto mode
+Setting up build-essential (12.6) ...
+Setting up linux-headers-amd64 (4.19+105+deb10u7) ...
+Processing triggers for systemd (241-7~deb10u4) ...
+Processing triggers for man-db (2.8.5-2) ...
+Processing triggers for libc-bin (2.28-10) ...
+===> Adding your username to the docker group to avoid typing sudo whenever you run the docker command...
+
+Synchronizing state of docker.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install enable docker
+
+===> Installing docker-compose...
+
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   651  100   651    0     0    848      0 --:--:-- --:--:-- --:--:--   847
+100 11.6M  100 11.6M    0     0   350k      0  0:00:34  0:00:34 --:--:--  606k
+
+===> Installing openemr-cmd...
+
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 18407  100 18407    0     0   9273      0  0:00:01  0:00:01 --:--:--  9268
+
+
+===> Inatalling conntrack package...
+
+Hit:1 http://deb.debian.org/debian buster InRelease
+Hit:2 http://security.debian.org/debian-security buster/updates InRelease
+Hit:3 http://deb.debian.org/debian buster-updates InRelease
+Hit:4 https://download.docker.com/linux/debian buster InRelease
+Reading package lists... Done
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+Suggested packages:
+  nftables
+The following NEW packages will be installed:
+  conntrack
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 33.3 kB of archives.
+After this operation, 105 kB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian buster/main amd64 conntrack amd64 1:1.4.5-2 [33.3 kB]
+Fetched 33.3 kB in 0s (143 kB/s)
+Selecting previously unselected package conntrack.
+(Reading database ... 159735 files and directories currently installed.)
+Preparing to unpack .../conntrack_1%3a1.4.5-2_amd64.deb ...
+Unpacking conntrack (1:1.4.5-2) ...
+Setting up conntrack (1:1.4.5-2) ...
+Processing triggers for man-db (2.8.5-2) ...
+
+===> Installing minikube...
+
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 56.0M  100 56.0M    0     0   9.8M      0  0:00:05  0:00:05 --:--:-- 15.8M
+
+
+From a terminal with administrator access (but not logged in as root), run:
+     minikube start
+If minikube fails to start, see the drivers page(https://minikube.sigs.k8s.io/docs/drivers/)
+for help setting up a compatible container or virtual-machine manager.
+
+===> Installing kubectl...
+
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 41.0M  100 41.0M    0     0  12.5M      0  0:00:03  0:00:03 --:--:-- 12.5M
+
+*****************Quick Check*****************
+git version 2.20.1
+Docker version 19.03.13, build 4484c46d9d
+docker-compose version 1.26.2, build eefe0d31
+openemer-cmd 1.0.6
+minikube version: v1.14.0
+Kubectl check:
+Client Version: version.Info{Major:"1", Minor:"19", GitVersion:"v1.19.0", GitCommit:"e19964183377d0ec2052d1f1fa930c4d7575bd50", GitTreeState:"clean", BuildDate:"2020-08-26T14:30:33Z", GoVersion:"go1.15", Compiler:"gc", Platform:"linux/amd64"}
+The docker status: active
+NOTE: Please run 'dnf update' for fedora if docker-compose check failed.
+*********************************************
+
+*********************************************Startup Env*********************************************
+NOTE: Please log out and back in for using docker as a non-root user to take effect if ubuntu/debian.
+==>Run the below command to startup easy env.
+   cd /home/reid/code/openemr && openemr-cmd up
+==>Or run the below command to startup insane env.
+   cd /home/reid/code/openemr/contrib/util/docker && openemr-cmd up
+==>Or run the below command to startup OpenEMR Orchestration.
+   Please run with '--driver=none' for minikube if run as root.
+   minikube start --driver=docker
+   cd /home/reid/code/openemr-devops/kubernetes/minikube/ && bash kub-up
+*****************************************************************************************************
+
+
+
