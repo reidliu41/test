@@ -10,5 +10,3 @@ test=test
 
 
 ateat
-
-newline-test
