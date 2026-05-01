@@ -10,4 +10,7 @@ test=test
 
 
 ateat
-test-string
+
+
+newline-test
+test-work
